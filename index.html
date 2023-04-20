@@ -1,7 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RMarkdown Report Template Generator</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages. </p>
+  <main>
+    <h1>RMarkdown Report Template Generator</h1>
+    <form id="template-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="subject-code">Subject Code:</label>
+      <input type="text" id="subject-code" name="subject-code" required>
+      
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      
+      <label for="student-id">Student ID:</label>
+      <input type="text" id="student-id" name="student-id" required>
+      
+      <button type="submit">Generate</button>
+    </form>
+    <textarea id="output" readonly></textarea>
+  </main>
 </body>
 </html>
