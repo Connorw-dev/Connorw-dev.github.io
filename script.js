@@ -7,7 +7,6 @@ document.getElementById("template-form").addEventListener("submit", (event) => {
     const studentId = document.getElementById("student-id").value;
 
     const font = document.getElementById("font").value;
-    const fontSize = document.getElementById("font-size").value;
   
     const output = `
 ---
@@ -22,14 +21,13 @@ output:
     extra_dependencies: float
     fig_caption: yes
     number_sections: true
+    pdf_engine: xelatex
+mainfont: ${font}
 header-includes: |
   \\usepackage{caption}
   \\usepackage{fancyhdr}
   \\renewcommand{\\headrulewidth}{0pt}
 
-  \\usepackage{${font}}
-  \\fontsize{${fontSize}}{${fontSize * 1.2}}
-  
   \\usepackage{lastpage}
   \\usepackage{datetime2}
   \\usepackage{textcase}
