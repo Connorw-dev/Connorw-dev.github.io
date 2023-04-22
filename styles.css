@@ -52,4 +52,7 @@ body {
     resize: none;
     border: none;
   }
-  
+
+  select {
+    padding: 5px;
+  }

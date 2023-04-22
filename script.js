@@ -5,6 +5,9 @@ document.getElementById("template-form").addEventListener("submit", (event) => {
     const subjectCode = document.getElementById("subject-code").value;
     const title = document.getElementById("title").value;
     const studentId = document.getElementById("student-id").value;
+
+    const font = document.getElementById("font").value;
+    const fontSize = document.getElementById("font-size").value;
   
     const output = `
 ---
@@ -23,6 +26,9 @@ header-includes: |
   \\usepackage{caption}
   \\usepackage{fancyhdr}
   \\renewcommand{\\headrulewidth}{0pt}
+
+  \\usepackage{${font}}
+  \\fontsize{${fontSize}}{${fontSize * 1.2}}
   
   \\usepackage{lastpage}
   \\usepackage{datetime2}
