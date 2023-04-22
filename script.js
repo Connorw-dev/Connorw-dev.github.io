@@ -5,8 +5,8 @@ document.getElementById("template-form").addEventListener("submit", (event) => {
     const subjectCode = document.getElementById("subject-code").value;
     const title = document.getElementById("title").value;
     const studentId = document.getElementById("student-id").value;
-
     const font = document.getElementById("font").value;
+    const dateFormat = document.getElementById("date-format").value;
   
     const output = `
 ---
@@ -15,7 +15,7 @@ title: |
 author: |
     | ${name}
     | Student ID: ${studentId}
-date: \\DTMtoday
+date: \\currentdate
 output:
   pdf_document:
     extra_dependencies: float
@@ -29,14 +29,14 @@ header-includes: |
   \\renewcommand{\\headrulewidth}{0pt}
 
   \\usepackage{lastpage}
-  \\usepackage{datetime2}
   \\usepackage{textcase}
-  \\DTMsetdatestyle{ddmmyyyy}
+
+  \\newcommand{\\currentdate}{\`r format(Sys.time(), '${dateFormat}')\`}
   
   \\pagestyle{fancy}
   \\fancyhead[L]{${name}}
   \\fancyhead[C]{${subjectCode} ${title}}
-  \\fancyhead[R]{Date of Submission: \\DTMtoday}
+  \\fancyhead[R]{Date of Submission: \\currentdate}
   \\fancyfoot[C]{}
   \\fancyfoot[R]{Page \\thepage\\ of \\pageref{LastPage}}
   
