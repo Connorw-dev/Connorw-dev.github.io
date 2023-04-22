@@ -21,7 +21,7 @@ output:
     extra_dependencies: float
     fig_caption: yes
     number_sections: true
-    pdf_engine: "xelatex"
+    latex_engine: xelatex
 mainfont: ${font}
 header-includes: |
   \\usepackage{caption}
