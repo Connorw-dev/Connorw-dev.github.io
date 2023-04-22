@@ -32,38 +32,41 @@
       </select>
 
       <label for="date-format">Date Format:</label>
-      <input type="text" id="date-format" name="date-format" value="%d-%b-%Y" required>
+      <input type="text" id="date-format" name="date-format" value="%B %d, %Y" required>
       <div class="hint">
-        <table>
-          <tr>
-            <th>Code</th>
-            <th>Meaning</th>
-          </tr>
-          <tr>
-            <td>%d</td>
-            <td>Decimal day</td>
-          </tr>
-          <tr>
-            <td>%b</td>
-            <td>Abbreviated month</td>
-          </tr>
-          <tr>
-            <td>%B</td>
-            <td>Full month</td>
-          </tr>
-          <tr>
-            <td>%m</td>
-            <td>Decimal month</td>
-          </tr>
-          <tr>
-            <td>%y</td>
-            <td>2-digit year</td>
-          </tr>
-          <tr>
-            <td>%Y</td>
-            <td>4-digit year</td>
-          </tr>
-        </table>
+        <span id="hint-toggle">Hint</span>
+        <div id="hint-content" class="hint-content">
+          <table>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+            </tr>
+            <tr>
+              <td>%d</td>
+              <td>Decimal day</td>
+            </tr>
+            <tr>
+              <td>%b</td>
+              <td>Abbreviated month</td>
+            </tr>
+            <tr>
+              <td>%B</td>
+              <td>Full month</td>
+            </tr>
+            <tr>
+              <td>%m</td>
+              <td>Decimal month</td>
+            </tr>
+            <tr>
+              <td>%y</td>
+              <td>2-digit year</td>
+            </tr>
+            <tr>
+              <td>%Y</td>
+              <td>4-digit year</td>
+            </tr>
+          </table>
+        </div>
       </div>
       
       <button type="submit">Generate</button>

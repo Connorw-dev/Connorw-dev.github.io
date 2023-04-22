@@ -81,3 +81,7 @@ options(scipen=2)  # Prevent scientific notation in plots
     document.getElementById("output").value = output;
   });
   
+  document.getElementById("hint-toggle").addEventListener("click", () => {
+    const hintContent = document.getElementById("hint-content");
+    hintContent.style.display = hintContent.style.display === "none" ? "block" : "none";
+  });
