@@ -22,22 +22,28 @@
     <label for="desired-grade">Desired Grade:</label>
     <input type="text" id="desired-grade" name="desired-grade" placeholder="Enter P, C, D, HD or %">
 
+    
     <table id="grade-table">
-      <thead>
+        <thead>
         <tr>
-          <th>Item</th>
-          <th>Weighting (%)</th>
-          <th>Grade</th>
+            <th>Item</th>
+            <th>Weighting (%)</th>
+            <th>Grade (out of 100%)</th> <!-- Updated header -->
+            <th>Remove</th> <!-- New header for removal button -->
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr>
-          <td><input type="text" class="item-input"></td>
-          <td><input type="number" class="weight-input"></td>
-          <td><input type="number" class="grade-input"></td>
+            <td><input type="text" class="item-input"></td>
+            <td><input type="number" class="weight-input"></td>
+            <td><input type="number" class="grade-input" placeholder="out of 100%"></td>
+            <td><button onclick="removeRow(this)">-</button></td>
         </tr>
-      </tbody>
+        </tbody>
     </table>
+    
+    <span id="error-message" style="color: red;"></span> <!-- Error message placeholder -->
+  
 
     <button onclick="addRow()">+</button>
     <button onclick="calculateRest()">Calculate rest</button>
