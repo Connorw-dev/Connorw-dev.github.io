@@ -3,75 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RMarkdown Report Template Generator</title>
+  <title>Home - RMarkdown Report Tool</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
   <main>
-    <h1>RMarkdown Report Template Generator</h1>
-    <form id="template-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-      
-      <label for="subject-code">Subject Code:</label>
-      <input type="text" id="subject-code" name="subject-code" required>
-      
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required>
-      
-      <label for="student-id">Student ID:</label>
-      <input type="text" id="student-id" name="student-id" required>
-
-      <label for="font">Font:</label>
-      <select id="font" name="font" required>
-        <option value="Times New Roman">Times New Roman</option>
-        <option value="Arial">Arial</option>
-        <option value="Helvetica">Helvetica</option>
-        <option value="Garamond">Garamond</option>
-      </select>
-
-      <label for="date-format">Date Format:</label>
-      <input type="text" id="date-format" name="date-format" value="%B %d, %Y" required>
-      <div class="hint">
-        <span id="hint-toggle">Hint</span>
-        <div id="hint-content" class="hint-content">
-          <table>
-            <tr>
-              <th>Code</th>
-              <th>Meaning</th>
-            </tr>
-            <tr>
-              <td>%d</td>
-              <td>Decimal day</td>
-            </tr>
-            <tr>
-              <td>%b</td>
-              <td>Abbreviated month</td>
-            </tr>
-            <tr>
-              <td>%B</td>
-              <td>Full month</td>
-            </tr>
-            <tr>
-              <td>%m</td>
-              <td>Decimal month</td>
-            </tr>
-            <tr>
-              <td>%y</td>
-              <td>2-digit year</td>
-            </tr>
-            <tr>
-              <td>%Y</td>
-              <td>4-digit year</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      
-      <button type="submit">Generate</button>
-    </form>
-    <textarea id="output" readonly></textarea>
+    <h1>Welcome to the RMarkdown Report Tool</h1>
+    <button onclick="location.href='templategen.html'" type="button">Go to Template Generator</button>
   </main>
 </body>
 </html>
