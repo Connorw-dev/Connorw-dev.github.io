@@ -88,7 +88,7 @@ function calculateRest() {
       const weight = parseFloat(weightInputs[index].value);
       if (!isNaN(weight)) {
         const calculatedGrade = 100 * (desiredGrade - 100 * currentGrade) / emptyWeights;
-        // input.value = Math.max(0, calculatedGrade).toFixed(2); // Ensure grades aren't negative
+        input.value = Math.max(0, calculatedGrade).toFixed(2); // Ensure grades aren't negative
         input.style.color = 'red';
       }
     }
