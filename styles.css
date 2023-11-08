@@ -33,17 +33,18 @@ input, select {
 /* Home Button Styles */
 button {
   grid-column: 1 / -1;
-  padding: 15px; /* Increased padding for better visibility */
-  background-color: #4a4a4a; /* Darker background for the main button */
-  border: 1px solid #f0f0f0; /* Adding a border to make the button stand out */
+  padding: 15px;
+  margin-top: 10px; /* Added margin for spacing between buttons */
+  background-color: #4a4a4a;
+  border: 1px solid #f0f0f0;
   color: #f0f0f0;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s; /* Added transform to transition for a press-down effect */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
-  background-color: #5a5a5a; /* Slightly lighter on hover for visual feedback */
-  transform: translateY(2px); /* Press-down effect */
+  background-color: #5a5a5a;
+  transform: translateY(2px);
 }
 
 /* Textarea styles, unchanged */
