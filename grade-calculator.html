@@ -5,11 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JCU Grade Calculator</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="grade-calculator-script.js" defer></script>
 </head>
 <body>
   <main>
     <h1>JCU Grade Calculator</h1>
-    <p>Grade calculator coming soon...</p>
+
+    <label for="year">Year:</label>
+    <input type="text" id="year" name="year" required>
+
+    <label for="subject-code">Subject Code:</label>
+    <input type="text" id="subject-code" name="subject-code" required>
+
+    <button onclick="searchSubject()">Search</button>
+
+    <label for="desired-grade">Desired Grade:</label>
+    <input type="text" id="desired-grade" name="desired-grade" placeholder="Enter P, C, D, HD or %">
+
+    <table id="grade-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Weighting (%)</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" class="item-input"></td>
+          <td><input type="number" class="weight-input"></td>
+          <td><input type="number" class="grade-input"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button onclick="addRow()">+</button>
+    <button onclick="calculateRest()">Calculate rest</button>
   </main>
 </body>
 </html>
