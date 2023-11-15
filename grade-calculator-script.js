@@ -69,16 +69,21 @@ function calculateRest() {
     // Check if grade is in x/y format and convert to percentage
     if (gradeValue.includes('/')) {
       const parts = gradeValue.split('/');
-      if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+      if (parts.length === 2) {
         const numerator = parseFloat(parts[0]);
         const denominator = parseFloat(parts[1]);
-        gradeValue = (numerator / denominator) * 100;
+        if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+          gradeValue = (numerator / denominator) * 100;
+        } else {
+          gradeValue = NaN; // Invalid format or division by zero, treat as NaN
+        }
       } else {
         gradeValue = NaN; // Invalid format, treat as NaN
       }
     } else {
       gradeValue = parseFloat(gradeValue);
     }
+
 
     if (!isNaN(weight)) {
       totalWeight += weight;
