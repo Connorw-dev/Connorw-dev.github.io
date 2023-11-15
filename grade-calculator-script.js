@@ -64,12 +64,26 @@ function calculateRest() {
 
   weightInputs.forEach((weightInput, index) => {
     const weight = parseFloat(weightInput.value);
-    const grade = parseFloat(gradeInputs[index].value);
+    let gradeValue = gradeInputs[index].value;
+
+    // Check if grade is in x/y format and convert to percentage
+    if (gradeValue.includes('/')) {
+      const parts = gradeValue.split('/');
+      if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        const numerator = parseFloat(parts[0]);
+        const denominator = parseFloat(parts[1]);
+        gradeValue = (numerator / denominator) * 100;
+      } else {
+        gradeValue = NaN; // Invalid format, treat as NaN
+      }
+    } else {
+      gradeValue = parseFloat(gradeValue);
+    }
 
     if (!isNaN(weight)) {
       totalWeight += weight;
-      if (!isNaN(grade)) {
-        currentGrade += (weight / 100) * grade;
+      if (!isNaN(gradeValue)) {
+        currentGrade += (weight / 100) * gradeValue;
       } else {
         emptyWeights += weight; // Track the sum of the weights for empty grade fields
       }
