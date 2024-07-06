@@ -103,6 +103,28 @@
       </div>
     </div>
 
+    <div class="dropdown">
+      <button>Filter by Campus</button>
+      <div class="dropdown-content">
+        <label><input type="checkbox" id="filterCampusAll" value="all" onchange="toggleAll('filterCampus')"> All</label>
+        <label><input type="checkbox" class="filterCampus" value="Cairns Nguma-bada" onchange="filterSubjects()"> Cairns</label>
+        <label><input type="checkbox" class="filterCampus" value="Townsville Bebegu Yumba" onchange="filterSubjects()"> Townsville</label>
+        <label><input type="checkbox" class="filterCampus" value="JCU Singapore" onchange="filterSubjects()"> Singapore</label>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button>Filter by Period</button>
+      <div class="dropdown-content">
+        <label><input type="checkbox" id="filterPeriodAll" value="all" onchange="toggleAll('filterPeriod')"> All</label>
+        <label><input type="checkbox" class="filterPeriod" value="Study Period 1" onchange="filterSubjects()"> Study Period 1</label>
+        <label><input type="checkbox" class="filterPeriod" value="Study Period 2" onchange="filterSubjects()"> Study Period 2</label>
+        <label><input type="checkbox" class="filterPeriod" value="Trimester 1" onchange="filterSubjects()"> Trimester 1</label>
+        <label><input type="checkbox" class="filterPeriod" value="Trimester 2" onchange="filterSubjects()"> Trimester 2</label>
+        <label><input type="checkbox" class="filterPeriod" value="Trimester 3" onchange="filterSubjects()"> Trimester 3</label>
+      </div>
+    </div>
+
     <table id="subjectsTable">
         <thead>
             <tr>

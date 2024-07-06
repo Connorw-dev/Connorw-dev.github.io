@@ -43,9 +43,14 @@ function toggleAll(filterType) {
 function filterSubjects() {
     const examAll = document.getElementById('filterExamAll').checked;
     const prefixAll = document.getElementById('filterPrefixAll').checked;
-    
+    const campusAll = document.getElementById('filterCampusAll').checked;
+    const periodAll = document.getElementById('filterPeriodAll').checked;
+
     const selectedExamFilters = Array.from(document.querySelectorAll('.filterExam:checked')).map(input => input.value);
     const selectedPrefixes = Array.from(document.querySelectorAll('.filterPrefix:checked')).map(input => input.value);
+    const selectedCampuses = Array.from(document.querySelectorAll('.filterCampus:checked')).map(input => input.value);
+    const selectedPeriods = Array.from(document.querySelectorAll('.filterPeriod:checked')).map(input => input.value);
+
     const keywords = document.getElementById('keywordInput').value.toLowerCase().split('&').map(term => term.trim());
     const excludeKeywords = document.getElementById('excludeKeywordInput').value.toLowerCase().split('&').map(term => term.trim());
     
@@ -54,7 +59,7 @@ function filterSubjects() {
 
     Object.keys(subjects).forEach(code => {
         const subject = subjects[code];
-        const hasCentrallyAdministeredExamination = subject.assessment.some(assess => assess.title.toLowerCase().includes('examination'));
+        const hasCentrallyAdministeredExamination = subject.assessment.some(assess => assess.title.toLowerCase().includes('examination (centrally administered)'));
         const subjectPrefix = code.substring(0, 2);
 
         const matchExamFilter = (
@@ -66,6 +71,22 @@ function filterSubjects() {
         const matchPrefixFilter = (
             prefixAll ||
             selectedPrefixes.includes(subjectPrefix)
+        );
+
+        const matchCampusFilter = (
+            campusAll ||
+            selectedCampuses.some(campus => subject.availabilities.some(availability => availability.includes(campus)))
+        );
+
+        const matchPeriodFilter = (
+            periodAll ||
+            selectedCampuses.some(campus => 
+                selectedPeriods.some(period => 
+                    subject.availabilities.some(availability => 
+                        availability.includes(campus) && availability.includes(period)
+                    )
+                )
+            )
         );
 
         const matchKeywordFilter = keywords.some(keyword => (
@@ -85,7 +106,7 @@ function filterSubjects() {
             !subject.assessment.some(assess => assess.title.toLowerCase().includes(excludeKeyword)))
         ));
 
-        if (matchExamFilter && matchPrefixFilter && matchKeywordFilter && matchExcludeKeywordFilter) {
+        if (matchExamFilter && matchPrefixFilter && matchCampusFilter && matchPeriodFilter && matchKeywordFilter && matchExcludeKeywordFilter) {
             const row = tableBody.insertRow();
             const cellCode = row.insertCell(0);
             cellCode.innerHTML = `<a href="https://apps.jcu.edu.au/subjectsearch/#/subject/2024/${code}" target="_blank">${code}</a>`;
@@ -93,5 +114,6 @@ function filterSubjects() {
         }
     });
 }
+
 
 window.onload = loadSubjects;
