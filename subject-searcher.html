@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subject Searcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="subject-searcher.js" defer></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      overflow: auto;
+      margin: 0;
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+    main {
+      width: 80%;
+      margin: 20px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f0f0f0;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      color: #000;
+    }
+    .dropdown-content input {
+      margin: 5px;
+    }
+    .dropdown-content label {
+      display: block;
+      padding: 5px;
+      cursor: pointer;
+    }
+    .dropdown-content label:hover {
+      background-color: #ddd;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .search-box {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Subject List</h1>
+
+    <div class="search-box">
+      <input type="text" id="keywordInput" placeholder="Type a keyword to search..." oninput="filterSubjects()">
+    </div>
+    
+    <div class="search-box">
+      <input type="text" id="excludeKeywordInput" placeholder="Type a keyword to exclude..." oninput="filterSubjects()">
+    </div>
+
+    <div class="dropdown">
+      <button>Filter by Exam</button>
+      <div class="dropdown-content">
+        <label><input type="checkbox" id="filterExamAll" value="all" onchange="toggleAll('filterExam')"> All</label>
+        <label><input type="checkbox" class="filterExam" value="hasExam" onchange="filterSubjects()"> Has Exam</label>
+        <label><input type="checkbox" class="filterExam" value="noExam" onchange="filterSubjects()"> No Exam</label>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button>Filter by Prefix</button>
+      <div class="dropdown-content">
+        <label><input type="checkbox" id="filterPrefixAll" value="all" onchange="toggleAll('filterPrefix')"> All</label>
+        <label><input type="checkbox" class="filterPrefix" value="MA" onchange="filterSubjects()"> MA</label>
+        <label><input type="checkbox" class="filterPrefix" value="SC" onchange="filterSubjects()"> SC</label>
+        <label><input type="checkbox" class="filterPrefix" value="CP" onchange="filterSubjects()"> CP</label>
+        <label><input type="checkbox" class="filterPrefix" value="CC" onchange="filterSubjects()"> CC</label>
+        <label><input type="checkbox" class="filterPrefix" value="EE" onchange="filterSubjects()"> EE</label>
+        <label><input type="checkbox" class="filterPrefix" value="EG" onchange="filterSubjects()"> EG</label>
+        <label><input type="checkbox" class="filterPrefix" value="PH" onchange="filterSubjects()"> PH</label>
+      </div>
+    </div>
+
+    <table id="subjectsTable">
+        <thead>
+            <tr>
+                <th>Subject Code</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+  </main>
+</body>
+</html>
