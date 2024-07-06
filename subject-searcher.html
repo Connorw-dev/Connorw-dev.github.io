@@ -90,6 +90,15 @@
     </div>
 
     <div class="dropdown">
+        <button>Filter by Essay</button>
+        <div class="dropdown-content">
+          <label><input type="checkbox" id="filterEssayAll" value="all" onchange="toggleAll('filterEssay')"> All</label>
+          <label><input type="checkbox" class="filterEssay" value="hasEssay" onchange="filterSubjects()"> Has Essay</label>
+          <label><input type="checkbox" class="filterEssay" value="noEssay" onchange="filterSubjects()"> No Essay</label>
+        </div>
+      </div>
+      
+    <div class="dropdown">
       <button>Filter by Prefix</button>
       <div class="dropdown-content">
         <label><input type="checkbox" id="filterPrefixAll" value="all" onchange="toggleAll('filterPrefix')"> All</label>

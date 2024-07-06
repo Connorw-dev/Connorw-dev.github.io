@@ -45,11 +45,13 @@ function filterSubjects() {
     const prefixAll = document.getElementById('filterPrefixAll').checked;
     const campusAll = document.getElementById('filterCampusAll').checked;
     const periodAll = document.getElementById('filterPeriodAll').checked;
+    const essayAll = document.getElementById('filterEssayAll').checked;
 
     const selectedExamFilters = Array.from(document.querySelectorAll('.filterExam:checked')).map(input => input.value);
     const selectedPrefixes = Array.from(document.querySelectorAll('.filterPrefix:checked')).map(input => input.value);
     const selectedCampuses = Array.from(document.querySelectorAll('.filterCampus:checked')).map(input => input.value);
     const selectedPeriods = Array.from(document.querySelectorAll('.filterPeriod:checked')).map(input => input.value);
+    const selectedEssayFilters = Array.from(document.querySelectorAll('.filterEssay:checked')).map(input => input.value);
 
     const keywords = document.getElementById('keywordInput').value.toLowerCase().split('&').map(term => term.trim());
     const excludeKeywords = document.getElementById('excludeKeywordInput').value.toLowerCase().split('&').map(term => term.trim());
@@ -60,6 +62,7 @@ function filterSubjects() {
     Object.keys(subjects).forEach(code => {
         const subject = subjects[code];
         const hasCentrallyAdministeredExamination = subject.assessment.some(assess => assess.title.toLowerCase().includes('examination (centrally administered)'));
+        const hasEssay = subject.assessment.some(assess => assess.title.toLowerCase().includes('essay'));
         const subjectPrefix = code.substring(0, 2);
 
         const matchExamFilter = (
@@ -89,6 +92,12 @@ function filterSubjects() {
             )
         );
 
+        const matchEssayFilter = (
+            essayAll ||
+            (selectedEssayFilters.includes('hasEssay') && hasEssay) ||
+            (selectedEssayFilters.includes('noEssay') && !hasEssay)
+        );
+
         const matchKeywordFilter = keywords.some(keyword => (
             code.toLowerCase().includes(keyword) ||
             subject.name.toLowerCase().includes(keyword) ||
@@ -106,7 +115,7 @@ function filterSubjects() {
             !subject.assessment.some(assess => assess.title.toLowerCase().includes(excludeKeyword)))
         ));
 
-        if (matchExamFilter && matchPrefixFilter && matchCampusFilter && matchPeriodFilter && matchKeywordFilter && matchExcludeKeywordFilter) {
+        if (matchExamFilter && matchPrefixFilter && matchCampusFilter && matchPeriodFilter && matchEssayFilter && matchKeywordFilter && matchExcludeKeywordFilter) {
             const row = tableBody.insertRow();
             const cellCode = row.insertCell(0);
             cellCode.innerHTML = `<a href="https://apps.jcu.edu.au/subjectsearch/#/subject/2024/${code}" target="_blank">${code}</a>`;
@@ -114,6 +123,5 @@ function filterSubjects() {
         }
     });
 }
-
 
 window.onload = loadSubjects;
