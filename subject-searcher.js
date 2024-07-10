@@ -78,7 +78,7 @@ function filterSubjects() {
 
         const matchCampusFilter = (
             campusAll ||
-            selectedCampuses.some(campus => subject.availabilities.some(availability => availability.includes(campus)))
+            selectedCampuses.some(campus => subject.availabilities.some(availability => availability.availability.includes(campus)))
         );
 
         const matchPeriodFilter = (
@@ -86,7 +86,7 @@ function filterSubjects() {
             selectedCampuses.some(campus => 
                 selectedPeriods.some(period => 
                     subject.availabilities.some(availability => 
-                        availability.includes(campus) && availability.includes(period)
+                        availability.availability.includes(campus) && availability.availability.includes(period)
                     )
                 )
             )
