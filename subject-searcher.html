@@ -83,25 +83,25 @@
     <div class="dropdown">
       <button>Filter by Exam</button>
       <div class="dropdown-content">
-        <label><input type="checkbox" id="filterExamAll" value="all" onchange="toggleAll('filterExam')"> All</label>
+        <label><input type="checkbox" id="filterExamAll" value="all" onchange="toggleAll('filterExam')" checked> All</label>
         <label><input type="checkbox" class="filterExam" value="hasExam" onchange="filterSubjects()"> Has Exam</label>
         <label><input type="checkbox" class="filterExam" value="noExam" onchange="filterSubjects()"> No Exam</label>
       </div>
     </div>
 
     <div class="dropdown">
-        <button>Filter by Essay</button>
-        <div class="dropdown-content">
-          <label><input type="checkbox" id="filterEssayAll" value="all" onchange="toggleAll('filterEssay')"> All</label>
-          <label><input type="checkbox" class="filterEssay" value="hasEssay" onchange="filterSubjects()"> Has Essay</label>
-          <label><input type="checkbox" class="filterEssay" value="noEssay" onchange="filterSubjects()"> No Essay</label>
-        </div>
+      <button>Filter by Essay</button>
+      <div class="dropdown-content">
+        <label><input type="checkbox" id="filterEssayAll" value="all" onchange="toggleAll('filterEssay')" checked> All</label>
+        <label><input type="checkbox" class="filterEssay" value="hasEssay" onchange="filterSubjects()"> Has Essay</label>
+        <label><input type="checkbox" class="filterEssay" value="noEssay" onchange="filterSubjects()"> No Essay</label>
       </div>
-      
+    </div>
+
     <div class="dropdown">
       <button>Filter by Prefix</button>
       <div class="dropdown-content">
-        <label><input type="checkbox" id="filterPrefixAll" value="all" onchange="toggleAll('filterPrefix')"> All</label>
+        <label><input type="checkbox" id="filterPrefixAll" value="all" onchange="toggleAll('filterPrefix')" checked> All</label>
         <label><input type="checkbox" class="filterPrefix" value="MA" onchange="filterSubjects()"> MA</label>
         <label><input type="checkbox" class="filterPrefix" value="SC" onchange="filterSubjects()"> SC</label>
         <label><input type="checkbox" class="filterPrefix" value="CP" onchange="filterSubjects()"> CP</label>
@@ -112,25 +112,39 @@
       </div>
     </div>
 
-    <div class="dropdown">
-      <button>Filter by Campus</button>
-      <div class="dropdown-content">
-        <label><input type="checkbox" id="filterCampusAll" value="all" onchange="toggleAll('filterCampus')"> All</label>
-        <label><input type="checkbox" class="filterCampus" value="Cairns Nguma-bada" onchange="filterSubjects()"> Cairns</label>
-        <label><input type="checkbox" class="filterCampus" value="Townsville Bebegu Yumba" onchange="filterSubjects()"> Townsville</label>
-        <label><input type="checkbox" class="filterCampus" value="JCU Singapore" onchange="filterSubjects()"> Singapore</label>
+    <div class="availability">
+      <h2>Availability</h2>
+      
+      <div class="dropdown">
+        <button>Filter by Campus</button>
+        <div class="dropdown-content">
+          <label><input type="radio" name="campus" id="filterCampusAll" value="all" onchange="filterSubjects()" checked> All</label>
+          <label><input type="radio" name="campus" class="filterCampus" value="Cairns Nguma-bada" onchange="filterSubjects()"> Cairns</label>
+          <label><input type="radio" name="campus" class="filterCampus" value="Townsville Bebegu Yumba" onchange="filterSubjects()"> Townsville</label>
+          <label><input type="radio" name="campus" class="filterCampus" value="JCU Singapore" onchange="filterSubjects()"> Singapore</label>
+          <label><input type="radio" name="campus" class="filterCampus" value="Brisbane" onchange="filterSubjects()"> Brisbane</label>
+          <!-- Add other campuses if needed -->
+        </div>
       </div>
-    </div>
 
-    <div class="dropdown">
-      <button>Filter by Period</button>
-      <div class="dropdown-content">
-        <label><input type="checkbox" id="filterPeriodAll" value="all" onchange="toggleAll('filterPeriod')"> All</label>
-        <label><input type="checkbox" class="filterPeriod" value="Study Period 1" onchange="filterSubjects()"> Study Period 1</label>
-        <label><input type="checkbox" class="filterPeriod" value="Study Period 2" onchange="filterSubjects()"> Study Period 2</label>
-        <label><input type="checkbox" class="filterPeriod" value="Trimester 1" onchange="filterSubjects()"> Trimester 1</label>
-        <label><input type="checkbox" class="filterPeriod" value="Trimester 2" onchange="filterSubjects()"> Trimester 2</label>
-        <label><input type="checkbox" class="filterPeriod" value="Trimester 3" onchange="filterSubjects()"> Trimester 3</label>
+      <div class="dropdown">
+        <button>Filter by Period</button>
+        <div class="dropdown-content">
+          <label><input type="radio" name="period" id="filterPeriodAll" value="all" onchange="filterSubjects()" checked> All</label>
+          <label><input type="radio" name="period" class="filterPeriod" value="Study Period 1" onchange="filterSubjects()"> Study Period 1</label>
+          <label><input type="radio" name="period" class="filterPeriod" value="Study Period 2" onchange="filterSubjects()"> Study Period 2</label>
+          <label><input type="radio" name="period" class="filterPeriod" value="Trimester 1" onchange="filterSubjects()"> Trimester 1</label>
+          <label><input type="radio" name="period" class="filterPeriod" value="Trimester 2" onchange="filterSubjects()"> Trimester 2</label>
+          <label><input type="radio" name="period" class="filterPeriod" value="Trimester 3" onchange="filterSubjects()"> Trimester 3</label>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="lecturerWantInput" placeholder="Lecturer Want..." oninput="filterSubjects()">
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="lecturerNotWantInput" placeholder="Lecturer Not Want..." oninput="filterSubjects()">
       </div>
     </div>
 
