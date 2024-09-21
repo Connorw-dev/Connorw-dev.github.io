@@ -86,11 +86,23 @@ h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .category-card:hover, .project-card:hover, .tool-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.category-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.category-card p {
+  margin-bottom: 0;
 }
 
 .project-card img {
