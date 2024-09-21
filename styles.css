@@ -38,10 +38,13 @@ nav ul li a {
   text-decoration: none;
   font-size: 18px;
   transition: color 0.3s ease;
+  padding: 10px 15px;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, nav ul li a.active {
   color: var(--accent-color);
+  background-color: rgba(187, 134, 252, 0.1);
+  border-radius: 4px;
 }
 
 main {
