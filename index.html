@@ -3,14 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Connor White Tools</title>
+  <title>Connor White - Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <main>
-    <h1>Tools made by Connor White</h1>
-    <button onclick="location.href='subject-searcher.html'" type="button">Subject Searcher</button>
-    <button onclick="location.href='grade-calculator.html'" type="button">JCU Grade Calculator</button>
+    <section id="home">
+      <h1>Connor White</h1>
+      <p>University Student | Developer | Innovator</p>
+    </section>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>I'm a passionate university student studying [Your Major] at [Your University]. I love creating tools and projects that solve real-world problems.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>Project 1</h3>
+          <p>Description of project 1</p>
+        </div>
+        <div class="project-card">
+          <h3>Project 2</h3>
+          <p>Description of project 2</p>
+        </div>
+        <!-- Add more project cards as needed -->
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2>Tools</h2>
+      <div class="tool-grid">
+        <a href="subject-searcher.html" class="tool-card">
+          <i class="fas fa-search"></i>
+          <h3>Subject Searcher</h3>
+        </a>
+        <a href="grade-calculator.html" class="tool-card">
+          <i class="fas fa-calculator"></i>
+          <h3>JCU Grade Calculator</h3>
+        </a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p>Feel free to reach out to me for collaborations or inquiries.</p>
+      <div class="social-links">
+        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2024 Connor White. All rights reserved.</p>
+  </footer>
 </body>
 </html>
