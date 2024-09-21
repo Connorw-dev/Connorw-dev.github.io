@@ -70,22 +70,35 @@ h2 {
   margin-bottom: 20px;
 }
 
-.project-grid, .tool-grid {
+.project-categories, .project-grid, .tool-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
-.project-card, .tool-card {
+.category-card, .project-card, .tool-card {
   background-color: var(--card-bg-color);
   border-radius: 8px;
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: var(--text-color);
 }
 
-.project-card:hover, .tool-card:hover {
+.category-card:hover, .project-card:hover, .tool-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.project-card h3 {
+  margin-top: 0;
 }
 
 .tool-card {
