@@ -1,6 +1,6 @@
 .mtg-counter {
     height: calc(100vh - 60px);
-    margin-top: 60px;
+    padding-top: 60px;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -64,6 +64,12 @@
 
 .timer {
     font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.turn-counter {
+    font-size: 1.2em;
+    color: var(--accent-color);
 }
 
 button {
