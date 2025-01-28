@@ -1,0 +1,101 @@
+.mtg-counter {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-areas: 
+        "p2 . p1"
+        ". c ."
+        "p3 . p4";
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 1fr auto 1fr;
+}
+
+.player-container {
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#player1 {
+    grid-area: p1;
+    background-color: rgba(187, 134, 252, 0.2);
+}
+
+#player2 {
+    grid-area: p2;
+    background-color: rgba(3, 218, 198, 0.2);
+}
+
+#player3 {
+    grid-area: p3;
+    background-color: rgba(255, 87, 51, 0.2);
+}
+
+#player4 {
+    grid-area: p4;
+    background-color: rgba(255, 193, 7, 0.2);
+}
+
+.active-player {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.life-counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.life {
+    font-size: 3em;
+    min-width: 2em;
+    text-align: center;
+}
+
+.timer {
+    font-size: 1.5em;
+}
+
+button {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.game-control {
+    grid-area: c;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 5px;
+}
+
+.decrement, .increment {
+    font-size: 1.5em;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
