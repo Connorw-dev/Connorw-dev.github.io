@@ -1,28 +1,12 @@
+import { Player } from './models/Player.js';
+import { GameState } from './services/GameState.js';
+import { GAME_CONSTANTS } from './config/constants.js';
+
 /**
  * MTG Life Counter Application
  * Tracks life totals, turn order, and game time for Magic: The Gathering games
  */
 class MTGCounter {
-    // Constants
-    static DEFAULT_LIFE = 40;
-    static MIN_PLAYERS = 2;
-    static MAX_PLAYERS = 6;
-    static LONG_PRESS_DELAY = 500;
-    static CHANGE_INDICATOR_DURATION = 3000;
-    static LONG_PRESS_MULTIPLIER = 9;
-    static TIMER_INTERVAL = 1000;
-
-    /**
-     * Player turn order configurations for different player counts
-     * Values represent player indices in clockwise order
-     */
-    static PLAYER_ORDERS = {
-        2: [0, 1],
-        3: [0, 1, 2],
-        4: [0, 1, 3, 2],
-        5: [0, 1, 2, 3, 4],
-        6: [0, 1, 3, 4, 2, 5]
-    };
 
     /**
      * Initialize the MTG Counter application
