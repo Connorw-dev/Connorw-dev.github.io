@@ -11,11 +11,17 @@ class MTGCounter {
         const savedState = localStorage.getItem('mtgCounterState');
         if (savedState) {
             const state = JSON.parse(savedState);
-            this.players = state.players;
+            this.players = state.players.map(p => ({...p, timerInterval: null}));
             this.currentPlayer = state.currentPlayer;
             this.gameStarted = state.gameStarted;
             this.currentTurn = state.currentTurn || 0;
             this.updateAllDisplays();
+            
+            // Restore game state
+            if (this.gameStarted && this.currentPlayer !== null) {
+                document.getElementById('gameControl').textContent = 'End Turn';
+                this.startTimer(this.currentPlayer);
+            }
         } else {
             this.players = Array.from({length: 4}, (_, i) => ({
                 id: i + 1,
@@ -43,7 +49,41 @@ class MTGCounter {
         localStorage.setItem('mtgCounterState', JSON.stringify(state));
     }
 
+    resetGame() {
+        // Stop all timers
+        this.players.forEach((_, index) => {
+            this.stopTimer(index);
+        });
+
+        // Reset to initial state
+        this.players = Array.from({length: 4}, (_, i) => ({
+            id: i + 1,
+            life: 40,
+            timer: 0,
+            timerInterval: null,
+            turn: 0
+        }));
+        this.currentPlayer = null;
+        this.gameStarted = false;
+        this.currentTurn = 0;
+
+        // Reset UI
+        document.getElementById('gameControl').textContent = 'Start Game';
+        document.querySelectorAll('.player-container').forEach(container => {
+            container.classList.remove('active-player');
+        });
+
+        // Update displays
+        this.updateAllDisplays();
+
+        // Clear localStorage
+        localStorage.removeItem('mtgCounterState');
+    }
+
     setupEventListeners() {
+        // Reset game button
+        document.getElementById('restartGame').addEventListener('click', () => this.resetGame());
+
         document.querySelectorAll('.player-container').forEach((container, index) => {
             const decrementBtn = container.querySelector('.decrement');
             const incrementBtn = container.querySelector('.increment');

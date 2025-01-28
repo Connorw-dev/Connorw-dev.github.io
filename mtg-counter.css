@@ -96,6 +96,12 @@ button:hover {
     border-radius: 5px;
 }
 
+.restart-button {
+    grid-area: c;
+    margin-top: 60px;
+    background-color: #ff4444;
+}
+
 .decrement, .increment {
     font-size: 1.5em;
     width: 40px;
