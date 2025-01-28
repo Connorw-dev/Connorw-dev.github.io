@@ -6,6 +6,7 @@ class MTGCounter {
         this.longPressDelay = 500; // ms before triggering long press
         this.playerOrder = [1, 0, 3, 2]; // top-left, top-right, bottom-right, bottom-left
         this.isPaused = false;
+        this.undoStack = [];
     }
 
     loadState() {
@@ -92,6 +93,7 @@ class MTGCounter {
         // Game control buttons
         document.getElementById('restartGame').addEventListener('click', () => this.resetGame());
         document.getElementById('pauseGame').addEventListener('click', () => this.togglePause());
+        document.getElementById('undoAction').addEventListener('click', () => this.undo());
 
         document.querySelectorAll('.player-container').forEach((container, index) => {
             const decrementBtn = container.querySelector('.decrement');
@@ -143,9 +145,42 @@ class MTGCounter {
     }
 
     updateLife(playerIndex, change) {
+        const oldLife = this.players[playerIndex].life;
         this.players[playerIndex].life += change;
         const playerElement = document.querySelector(`#player${playerIndex + 1}`);
         playerElement.querySelector('.life').textContent = this.players[playerIndex].life;
+        
+        // Add to undo stack
+        this.undoStack.push({
+            type: 'life',
+            playerIndex: playerIndex,
+            oldValue: oldLife,
+            newValue: this.players[playerIndex].life
+        });
+        
+        this.saveState();
+    }
+
+    undo() {
+        if (this.undoStack.length === 0) return;
+        
+        const lastAction = this.undoStack.pop();
+        
+        if (lastAction.type === 'life') {
+            this.players[lastAction.playerIndex].life = lastAction.oldValue;
+            const playerElement = document.querySelector(`#player${lastAction.playerIndex + 1}`);
+            playerElement.querySelector('.life').textContent = lastAction.oldValue;
+        } else if (lastAction.type === 'turn') {
+            this.currentPlayer = lastAction.oldPlayer;
+            this.currentTurn = lastAction.oldTurn;
+            this.players[lastAction.newPlayer].turn = 0;
+            this.players[lastAction.oldPlayer].turn = lastAction.oldTurn;
+            this.stopTimer(lastAction.newPlayer);
+            this.startTimer(lastAction.oldPlayer);
+            this.setActivePlayer(lastAction.oldPlayer);
+        }
+        
+        this.updateAllDisplays();
         this.saveState();
     }
 
@@ -234,6 +269,10 @@ class MTGCounter {
             this.players[this.currentPlayer].turn = this.currentTurn;
             this.updateAllDisplays();
         } else {
+            // Store state for undo
+            const oldPlayer = this.currentPlayer;
+            const oldTurn = this.currentTurn;
+            
             // End current turn
             this.stopTimer(this.currentPlayer);
             const currentPlayerIndex = this.playerOrder.indexOf(this.currentPlayer);
@@ -244,10 +283,18 @@ class MTGCounter {
                 this.currentTurn++;
             }
             
+            // Add to undo stack
+            this.undoStack.push({
+                type: 'turn',
+                oldPlayer: oldPlayer,
+                newPlayer: this.currentPlayer,
+                oldTurn: oldTurn
+            });
+            
             this.players[this.currentPlayer].turn = this.currentTurn;
             this.setActivePlayer(this.currentPlayer);
             this.startTimer(this.currentPlayer);
-            this.updateAllDisplays(); // Add this line to update turn counters
+            this.updateAllDisplays();
         }
         this.saveState();
     }

@@ -1,7 +1,8 @@
 .mtg-counter {
-    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
     margin: 0;
     padding-top: 60px;
+    padding-bottom: 20px;
     overflow: hidden;
     display: grid;
     grid-template-areas: 
@@ -100,9 +101,11 @@ button:hover {
 .button-container {
     grid-area: c;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    gap: 10px;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .game-control {
@@ -115,6 +118,10 @@ button:hover {
 
 .pause-button {
     background-color: #ffd700;
+}
+
+.undo-button {
+    background-color: #4169e1;
 }
 
 .decrement, .increment {
