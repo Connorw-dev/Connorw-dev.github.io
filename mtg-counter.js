@@ -416,7 +416,7 @@ class MTGCounter {
         this.players[playerIndex].timerInterval = setInterval(() => {
             this.players[playerIndex].timer++;
             this.updateTimerDisplay(playerIndex);
-        }, MTGCounter.TIMER_INTERVAL);
+        }, GAME_CONSTANTS.TIMER_INTERVAL);
     }
 
     togglePause() {
@@ -480,7 +480,7 @@ class MTGCounter {
     startNewGame() {
         this.gameStarted = true;
         this.currentTurn = 1;
-        this.currentPlayer = MTGCounter.PLAYER_ORDERS[this.playerCount][0];
+        this.currentPlayer = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0];
         
         document.getElementById('gameControl').textContent = 'End Turn';
         this.setActivePlayer(this.currentPlayer);
@@ -499,11 +499,11 @@ class MTGCounter {
         
         // End current turn
         this.stopTimer(this.currentPlayer);
-        const currentPlayerIndex = MTGCounter.PLAYER_ORDERS[this.playerCount].indexOf(this.currentPlayer);
-        this.currentPlayer = MTGCounter.PLAYER_ORDERS[this.playerCount][(currentPlayerIndex + 1) % this.playerCount];
+        const currentPlayerIndex = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount].indexOf(this.currentPlayer);
+        this.currentPlayer = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][(currentPlayerIndex + 1) % this.playerCount];
         
         // Increment turn counter when we loop back to first player
-        if (this.currentPlayer === MTGCounter.PLAYER_ORDERS[this.playerCount][0]) {
+        if (this.currentPlayer === GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0]) {
             this.currentTurn++;
         }
             

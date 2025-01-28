@@ -216,16 +216,18 @@ button:focus-visible {
 }
 
 .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    border: none;
     background-color: rgba(0, 0, 0, 0.8);
-    display: none;
+    padding: 0;
+    max-width: 100vw;
+    max-height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+}
+
+.menu-overlay::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .menu-content {
