@@ -21,52 +21,29 @@
         </nav>
     </header>
     <div class="mtg-counter">
-    <div class="player-container" id="player1">
-        <div class="life-counter">
-            <button class="decrement">-</button>
-            <span class="life">40</span>
-            <button class="increment">+</button>
+        <div class="players-container players-4">
+            <!-- Players will be dynamically added here -->
         </div>
-        <div class="timer">00:00</div>
-        <div class="turn-counter"></div>
-    </div>
-    
-    <div class="player-container" id="player2">
-        <div class="life-counter">
-            <button class="decrement">-</button>
-            <span class="life">40</span>
-            <button class="increment">+</button>
-        </div>
-        <div class="timer">00:00</div>
-        <div class="turn-counter"></div>
-    </div>
-    
-    <div class="player-container" id="player3">
-        <div class="life-counter">
-            <button class="decrement">-</button>
-            <span class="life">40</span>
-            <button class="increment">+</button>
-        </div>
-        <div class="timer">00:00</div>
-        <div class="turn-counter"></div>
-    </div>
-    
-    <div class="player-container" id="player4">
-        <div class="life-counter">
-            <button class="decrement">-</button>
-            <span class="life">40</span>
-            <button class="increment">+</button>
-        </div>
-        <div class="timer">00:00</div>
-        <div class="turn-counter"></div>
-    </div>
 
-    <div class="button-container">
-        <button id="gameControl" class="game-control">Start Game</button>
-        <button id="pauseGame" class="game-control pause-button">Pause</button>
-        <button id="undoAction" class="game-control undo-button">Undo</button>
-        <button id="restartGame" class="game-control restart-button">Restart Game</button>
-    </div>
+        <div class="main-controls">
+            <button id="gameControl" class="game-control">Start Game</button>
+            <button id="pauseGame" class="game-control pause-button">Pause</button>
+            <button id="menuButton" class="game-control menu-button">Menu</button>
+        </div>
+
+        <div class="menu-overlay">
+            <div class="menu-content">
+                <div class="player-count-control">
+                    <span>Players:</span>
+                    <button id="decreasePlayers" class="game-control">-</button>
+                    <span id="playerCount">4</span>
+                    <button id="increasePlayers" class="game-control">+</button>
+                </div>
+                <button id="undoAction" class="game-control undo-button">Undo</button>
+                <button id="restartGame" class="game-control restart-button">Restart Game</button>
+                <button id="closeMenu" class="game-control">Close Menu</button>
+            </div>
+        </div>
     </div>
     <script src="./mtg-counter.js"></script>
 </body>

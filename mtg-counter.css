@@ -2,16 +2,61 @@
     min-height: calc(100vh - 60px);
     margin: 0;
     padding-top: 60px;
-    padding-bottom: 20px;
+    padding-bottom: 80px;
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.players-container {
     display: grid;
+    gap: 20px;
+    width: 100%;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.players-2 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.players-3 {
     grid-template-areas: 
-        "p2 p1"
-        "c c"
+        "p1 p2"
+        ". p3 .";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.players-4 {
+    grid-template-areas: 
+        "p1 p2"
         "p3 p4";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr auto 1fr;
-    gap: 20px;
+    grid-template-rows: 1fr 1fr;
+}
+
+.players-5 {
+    grid-template-areas: 
+        "p1 p2"
+        "p3 p4"
+        ". p5 .";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.players-6 {
+    grid-template-areas: 
+        "p1 p2"
+        "p3 p4"
+        "p5 p6";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 .player-container {
@@ -115,14 +160,65 @@ button:hover {
     border-radius: 5px;
 }
 
-.button-container {
-    grid-area: c;
+.main-controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--accent-color);
+}
+
+.menu-button {
+    background-color: var(--secondary-color);
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.menu-content {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 300px;
+}
+
+.menu-content.show {
+    display: flex;
+}
+
+.menu-overlay.show {
+    display: flex;
+}
+
+.player-count-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.player-count-control button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
 }
 
 .game-control {
