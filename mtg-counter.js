@@ -9,6 +9,8 @@ class MTGCounter {
     static MAX_PLAYERS = 6;
     static LONG_PRESS_DELAY = 500;
     static CHANGE_INDICATOR_DURATION = 3000;
+    static LONG_PRESS_MULTIPLIER = 9;
+    static TIMER_INTERVAL = 1000;
 
     /**
      * Player turn order configurations for different player counts
@@ -261,11 +263,16 @@ class MTGCounter {
         }
     }
 
+    /**
+     * Start tracking a long press on a life change button
+     * @param {number} playerIndex - Index of the player
+     * @param {number} change - Amount to change life total (+1 or -1)
+     */
     startLongPress(playerIndex, change) {
         this.updateLife(playerIndex, change);
         this.longPressTimer = setTimeout(() => {
-            this.updateLife(playerIndex, change * 9); // Additional 9 for total of 10
-        }, this.longPressDelay);
+            this.updateLife(playerIndex, change * MTGCounter.LONG_PRESS_MULTIPLIER);
+        }, MTGCounter.LONG_PRESS_DELAY);
     }
 
     endLongPress() {
@@ -403,13 +410,17 @@ class MTGCounter {
         }
     }
 
+    /**
+     * Start the timer for a player
+     * @param {number} playerIndex - Index of the player
+     */
     startTimer(playerIndex) {
         if (this.players[playerIndex].timerInterval || this.isPaused) return;
         
         this.players[playerIndex].timerInterval = setInterval(() => {
             this.players[playerIndex].timer++;
             this.updateTimerDisplay(playerIndex);
-        }, 1000);
+        }, MTGCounter.TIMER_INTERVAL);
     }
 
     togglePause() {
@@ -452,33 +463,53 @@ class MTGCounter {
         document.querySelector(`#player${playerIndex + 1}`).classList.add('active-player');
     }
 
+    /**
+     * Handle game control button click (Start Game/End Turn)
+     */
     handleGameControl() {
         const gameControlBtn = document.getElementById('gameControl');
         
         if (!this.gameStarted) {
-            // Start game
-            this.gameStarted = true;
-            this.currentTurn = 1;
-            this.currentPlayer = this.playerOrders[this.playerCount][0];
-            gameControlBtn.textContent = 'End Turn';
-            this.setActivePlayer(this.currentPlayer);
-            this.startTimer(this.currentPlayer);
-            this.players[this.currentPlayer].turn = this.currentTurn;
-            this.updateAllDisplays();
+            this.startNewGame();
         } else {
-            // Store state for undo
-            const oldPlayer = this.currentPlayer;
-            const oldTurn = this.currentTurn;
-            
-            // End current turn
-            this.stopTimer(this.currentPlayer);
-            const currentPlayerIndex = this.playerOrders[this.playerCount].indexOf(this.currentPlayer);
-            this.currentPlayer = this.playerOrders[this.playerCount][(currentPlayerIndex + 1) % this.playerCount];
-            
-            // Increment turn counter when we loop back to first player
-            if (currentPlayerIndex === 3) {
-                this.currentTurn++;
-            }
+            this.endCurrentTurn();
+        }
+        
+        this.saveState();
+    }
+
+    /**
+     * Start a new game
+     */
+    startNewGame() {
+        this.gameStarted = true;
+        this.currentTurn = 1;
+        this.currentPlayer = MTGCounter.PLAYER_ORDERS[this.playerCount][0];
+        
+        document.getElementById('gameControl').textContent = 'End Turn';
+        this.setActivePlayer(this.currentPlayer);
+        this.startTimer(this.currentPlayer);
+        this.players[this.currentPlayer].turn = this.currentTurn;
+        this.updateAllDisplays();
+    }
+
+    /**
+     * End the current player's turn and start the next player's turn
+     */
+    endCurrentTurn() {
+        // Store state for undo
+        const oldPlayer = this.currentPlayer;
+        const oldTurn = this.currentTurn;
+        
+        // End current turn
+        this.stopTimer(this.currentPlayer);
+        const currentPlayerIndex = MTGCounter.PLAYER_ORDERS[this.playerCount].indexOf(this.currentPlayer);
+        this.currentPlayer = MTGCounter.PLAYER_ORDERS[this.playerCount][(currentPlayerIndex + 1) % this.playerCount];
+        
+        // Increment turn counter when we loop back to first player
+        if (this.currentPlayer === MTGCounter.PLAYER_ORDERS[this.playerCount][0]) {
+            this.currentTurn++;
+        }
             
             // Add to undo stack
             this.undoStack.push({
