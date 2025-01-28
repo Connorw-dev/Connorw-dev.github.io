@@ -5,6 +5,7 @@ class MTGCounter {
         this.longPressTimer = null;
         this.longPressDelay = 500; // ms before triggering long press
         this.playerOrder = [1, 0, 3, 2]; // top-left, top-right, bottom-right, bottom-left
+        this.isPaused = false;
     }
 
     loadState() {
@@ -88,8 +89,9 @@ class MTGCounter {
     }
 
     setupEventListeners() {
-        // Reset game button
+        // Game control buttons
         document.getElementById('restartGame').addEventListener('click', () => this.resetGame());
+        document.getElementById('pauseGame').addEventListener('click', () => this.togglePause());
 
         document.querySelectorAll('.player-container').forEach((container, index) => {
             const decrementBtn = container.querySelector('.decrement');
@@ -170,12 +172,31 @@ class MTGCounter {
     }
 
     startTimer(playerIndex) {
-        if (this.players[playerIndex].timerInterval) return;
+        if (this.players[playerIndex].timerInterval || this.isPaused) return;
         
         this.players[playerIndex].timerInterval = setInterval(() => {
             this.players[playerIndex].timer++;
             this.updateTimerDisplay(playerIndex);
         }, 1000);
+    }
+
+    togglePause() {
+        const pauseBtn = document.getElementById('pauseGame');
+        this.isPaused = !this.isPaused;
+        pauseBtn.textContent = this.isPaused ? 'Resume' : 'Pause';
+        
+        if (this.isPaused) {
+            // Stop current timer
+            if (this.currentPlayer !== null) {
+                this.stopTimer(this.currentPlayer);
+            }
+        } else {
+            // Resume timer for current player
+            if (this.gameStarted && this.currentPlayer !== null) {
+                this.startTimer(this.currentPlayer);
+            }
+        }
+        this.saveState();
     }
 
     stopTimer(playerIndex) {

@@ -97,17 +97,24 @@ button:hover {
     border-radius: 5px;
 }
 
-.game-control {
+.button-container {
     grid-area: c;
-    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.game-control {
     margin: 10px;
 }
 
 .restart-button {
-    grid-area: c;
-    align-self: start;
-    margin-top: 60px;
     background-color: #ff4444;
+}
+
+.pause-button {
+    background-color: #ffd700;
 }
 
 .decrement, .increment {
