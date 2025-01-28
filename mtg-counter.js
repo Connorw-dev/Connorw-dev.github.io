@@ -1,29 +1,49 @@
 class MTGCounter {
     constructor() {
+        this.playerCount = 4;
         this.loadState();
         this.setupEventListeners();
         this.longPressTimer = null;
         this.longPressDelay = 500; // ms before triggering long press
-        this.playerOrder = [1, 0, 3, 2]; // top-left, top-right, bottom-right, bottom-left
+        this.playerOrders = {
+            2: [0, 1],
+            3: [0, 1, 2],
+            4: [0, 1, 3, 2],
+            5: [0, 1, 2, 3, 4],
+            6: [0, 1, 3, 4, 2, 5]
+        };
         this.isPaused = false;
         this.undoStack = [];
-        this.changeIndicatorTimers = new Array(4).fill(null);
-        this.currentChanges = new Array(4).fill(0);
-        this.lastChangeTime = new Array(4).fill(0);
+        this.changeIndicatorTimers = [];
+        this.currentChanges = [];
+        this.lastChangeTime = [];
+        this.initializeArrays();
+        this.createPlayerElements();
+    }
+
+    initializeArrays() {
+        this.changeIndicatorTimers = new Array(this.playerCount).fill(null);
+        this.currentChanges = new Array(this.playerCount).fill(0);
+        this.lastChangeTime = new Array(this.playerCount).fill(0);
     }
 
     loadState() {
         const savedState = localStorage.getItem('mtgCounterState');
         if (savedState) {
             const state = JSON.parse(savedState);
+            this.playerCount = state.playerCount || 4;
             this.players = state.players.map(p => ({...p, timerInterval: null}));
             this.currentPlayer = state.currentPlayer;
             this.gameStarted = state.gameStarted;
             this.currentTurn = state.currentTurn || 0;
             
+            this.initializeArrays();
+            this.createPlayerElements();
+            
             // Update UI elements
             const gameControlBtn = document.getElementById('gameControl');
             gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
+            document.getElementById('playerCount').textContent = this.playerCount;
             
             // Update all displays first
             this.updateAllDisplays();
@@ -35,17 +55,78 @@ class MTGCounter {
                 setTimeout(() => this.startTimer(this.currentPlayer), 0);
             }
         } else {
-            this.players = Array.from({length: 4}, (_, i) => ({
-                id: i + 1,
-                life: 40,
-                timer: 0,
-                timerInterval: null,
-                turn: 0
-            }));
-            this.currentPlayer = null;
-            this.gameStarted = false;
-            this.currentTurn = 0;
+            this.initializeNewGame();
         }
+    }
+
+    initializeNewGame() {
+        this.players = Array.from({length: this.playerCount}, (_, i) => ({
+            id: i,
+            life: 40,
+            timer: 0,
+            timerInterval: null,
+            turn: 0
+        }));
+        this.currentPlayer = null;
+        this.gameStarted = false;
+        this.currentTurn = 0;
+        this.createPlayerElements();
+    }
+
+    createPlayerElements() {
+        const container = document.querySelector('.players-container');
+        container.innerHTML = '';
+        container.className = `players-container players-${this.playerCount}`;
+        
+        for (let i = 0; i < this.playerCount; i++) {
+            const playerDiv = document.createElement('div');
+            playerDiv.className = 'player-container';
+            playerDiv.id = `player${i + 1}`;
+            
+            playerDiv.innerHTML = `
+                <div class="life-counter">
+                    <button class="decrement">-</button>
+                    <span class="life">40</span>
+                    <button class="increment">+</button>
+                </div>
+                <div class="timer">00:00</div>
+                <div class="turn-counter"></div>
+            `;
+            
+            container.appendChild(playerDiv);
+        }
+        
+        this.setupPlayerEventListeners();
+    }
+
+    setupPlayerEventListeners() {
+        document.querySelectorAll('.player-container').forEach((container, index) => {
+            const decrementBtn = container.querySelector('.decrement');
+            const incrementBtn = container.querySelector('.increment');
+            
+            // Mouse events for decrement
+            decrementBtn.addEventListener('mousedown', () => this.startLongPress(index, -1));
+            decrementBtn.addEventListener('mouseup', () => this.endLongPress(index, -1));
+            decrementBtn.addEventListener('mouseleave', () => this.endLongPress(index, -1));
+            
+            // Mouse events for increment
+            incrementBtn.addEventListener('mousedown', () => this.startLongPress(index, 1));
+            incrementBtn.addEventListener('mouseup', () => this.endLongPress(index, 1));
+            incrementBtn.addEventListener('mouseleave', () => this.endLongPress(index, 1));
+            
+            // Touch events for mobile
+            decrementBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.startLongPress(index, -1);
+            });
+            decrementBtn.addEventListener('touchend', () => this.endLongPress(index, -1));
+            
+            incrementBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.startLongPress(index, 1);
+            });
+            incrementBtn.addEventListener('touchend', () => this.endLongPress(index, 1));
+        });
     }
 
     saveState() {
