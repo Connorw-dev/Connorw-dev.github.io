@@ -12,6 +12,7 @@ class MTGCounter {
      * Initialize the MTG Counter application
      */
     constructor() {
+        this.gameState = new GameState();
         this.playerCount = 4;
         this.longPressTimer = null;
         this.isPaused = false;
@@ -65,13 +66,10 @@ class MTGCounter {
     }
 
     initializeNewGame() {
-        this.players = Array.from({length: this.playerCount}, (_, i) => ({
-            id: i,
-            life: 40,
-            timer: 0,
-            timerInterval: null,
-            turn: 0
-        }));
+        this.players = Array.from(
+            { length: this.playerCount }, 
+            (_, i) => new Player(i)
+        );
         this.currentPlayer = null;
         this.gameStarted = false;
         this.currentTurn = 0;
@@ -234,8 +232,12 @@ class MTGCounter {
     }
 
     toggleMenu() {
-        const menuOverlay = document.querySelector('.menu-overlay');
-        menuOverlay.classList.toggle('show');
+        const menuDialog = document.getElementById('menuDialog');
+        if (menuDialog.open) {
+            menuDialog.close();
+        } else {
+            menuDialog.showModal();
+        }
     }
 
     changePlayerCount(change) {
@@ -255,8 +257,8 @@ class MTGCounter {
     startLongPress(playerIndex, change) {
         this.updateLife(playerIndex, change);
         this.longPressTimer = setTimeout(() => {
-            this.updateLife(playerIndex, change * MTGCounter.LONG_PRESS_MULTIPLIER);
-        }, MTGCounter.LONG_PRESS_DELAY);
+            this.updateLife(playerIndex, change * GAME_CONSTANTS.LONG_PRESS_MULTIPLIER);
+        }, GAME_CONSTANTS.LONG_PRESS_DELAY);
     }
 
     endLongPress() {
@@ -267,8 +269,18 @@ class MTGCounter {
     }
 
     updateLife(playerIndex, change) {
+        if (!Number.isInteger(change)) {
+            console.error('Life change must be an integer');
+            return;
+        }
+        
         const now = Date.now();
         const playerElement = document.querySelector(`#player${playerIndex + 1}`);
+        
+        if (!playerElement) {
+            console.error(`Player element ${playerIndex + 1} not found`);
+            return;
+        }
         
         // Reset change tracking if more than 3 seconds have passed
         if (now - this.lastChangeTime[playerIndex] > 3000) {
