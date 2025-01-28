@@ -174,10 +174,22 @@ class MTGCounter {
     }
 
     setupEventListeners() {
+        // Menu controls
+        document.getElementById('menuButton').addEventListener('click', () => this.toggleMenu());
+        document.getElementById('closeMenu').addEventListener('click', () => this.toggleMenu());
+        document.getElementById('increasePlayers').addEventListener('click', () => this.changePlayerCount(1));
+        document.getElementById('decreasePlayers').addEventListener('click', () => this.changePlayerCount(-1));
+        
         // Game control buttons
-        document.getElementById('restartGame').addEventListener('click', () => this.resetGame());
+        document.getElementById('restartGame').addEventListener('click', () => {
+            this.resetGame();
+            this.toggleMenu();
+        });
         document.getElementById('pauseGame').addEventListener('click', () => this.togglePause());
-        document.getElementById('undoAction').addEventListener('click', () => this.undo());
+        document.getElementById('undoAction').addEventListener('click', () => {
+            this.undo();
+            this.toggleMenu();
+        });
 
         document.querySelectorAll('.player-container').forEach((container, index) => {
             const decrementBtn = container.querySelector('.decrement');
@@ -212,6 +224,21 @@ class MTGCounter {
 
         // Load saved state when page loads
         this.updateAllDisplays();
+    }
+
+    toggleMenu() {
+        const menuOverlay = document.querySelector('.menu-overlay');
+        menuOverlay.classList.toggle('show');
+    }
+
+    changePlayerCount(change) {
+        const newCount = this.playerCount + change;
+        if (newCount >= 2 && newCount <= 6) {
+            this.playerCount = newCount;
+            document.getElementById('playerCount').textContent = this.playerCount;
+            this.initializeNewGame();
+            this.saveState();
+        }
     }
 
     startLongPress(playerIndex, change) {
@@ -412,7 +439,7 @@ class MTGCounter {
             // Start game
             this.gameStarted = true;
             this.currentTurn = 1;
-            this.currentPlayer = this.playerOrder[0];
+            this.currentPlayer = this.playerOrders[this.playerCount][0];
             gameControlBtn.textContent = 'End Turn';
             this.setActivePlayer(this.currentPlayer);
             this.startTimer(this.currentPlayer);
@@ -425,8 +452,8 @@ class MTGCounter {
             
             // End current turn
             this.stopTimer(this.currentPlayer);
-            const currentPlayerIndex = this.playerOrder.indexOf(this.currentPlayer);
-            this.currentPlayer = this.playerOrder[(currentPlayerIndex + 1) % 4];
+            const currentPlayerIndex = this.playerOrders[this.playerCount].indexOf(this.currentPlayer);
+            this.currentPlayer = this.playerOrders[this.playerCount][(currentPlayerIndex + 1) % this.playerCount];
             
             // Increment turn counter when we loop back to first player
             if (currentPlayerIndex === 3) {
