@@ -72,24 +72,34 @@
     transition: background-color 0.3s ease;
 }
 
-#player1 {
+.player-container:nth-child(1) {
     grid-area: p1;
     background-color: rgba(187, 134, 252, 0.2);
 }
 
-#player2 {
+.player-container:nth-child(2) {
     grid-area: p2;
     background-color: rgba(3, 218, 198, 0.2);
 }
 
-#player3 {
+.player-container:nth-child(3) {
     grid-area: p3;
     background-color: rgba(255, 87, 51, 0.2);
 }
 
-#player4 {
+.player-container:nth-child(4) {
     grid-area: p4;
     background-color: rgba(255, 193, 7, 0.2);
+}
+
+.player-container:nth-child(5) {
+    grid-area: p5;
+    background-color: rgba(255, 159, 64, 0.2);
+}
+
+.player-container:nth-child(6) {
+    grid-area: p6;
+    background-color: rgba(153, 102, 255, 0.2);
 }
 
 .active-player {

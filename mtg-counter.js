@@ -137,7 +137,8 @@ class MTGCounter {
             })),
             currentPlayer: this.currentPlayer,
             gameStarted: this.gameStarted,
-            currentTurn: this.currentTurn
+            currentTurn: this.currentTurn,
+            playerCount: this.playerCount
         };
         localStorage.setItem('mtgCounterState', JSON.stringify(state));
     }
@@ -149,7 +150,7 @@ class MTGCounter {
         });
 
         // Reset to initial state
-        this.players = Array.from({length: 4}, (_, i) => ({
+        this.players = Array.from({length: this.playerCount}, (_, i) => ({
             id: i + 1,
             life: 40,
             timer: 0,
