@@ -70,6 +70,7 @@ class MTGCounter {
         this.currentPlayer = null;
         this.gameStarted = false;
         this.currentTurn = 0;
+        this.initializeArrays();
         this.createPlayerElements();
     }
 
