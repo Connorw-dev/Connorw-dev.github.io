@@ -21,15 +21,17 @@
 }
 
 .players-2 {
-    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "p1 . . p2";
+    grid-template-columns: 1fr 20px 20px 1fr;
     grid-template-rows: 1fr;
 }
 
 .players-3 {
     grid-template-areas: 
-        "p1 p2"
+        "p1 . p2"
         ". p3 .";
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
     grid-template-rows: 1fr 1fr;
 }
 
@@ -43,10 +45,10 @@
 
 .players-5 {
     grid-template-areas: 
-        "p1 p2"
-        "p3 p4"
+        "p1 . p2"
+        "p3 . p4"
         ". p5 .";
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
 

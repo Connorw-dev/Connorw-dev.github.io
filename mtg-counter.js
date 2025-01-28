@@ -236,8 +236,7 @@ class MTGCounter {
         if (newCount >= 2 && newCount <= 6) {
             this.playerCount = newCount;
             document.getElementById('playerCount').textContent = this.playerCount;
-            this.initializeNewGame();
-            this.saveState();
+            this.resetGame();
         }
     }
 
