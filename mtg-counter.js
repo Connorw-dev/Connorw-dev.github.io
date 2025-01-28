@@ -153,10 +153,22 @@ class MTGCounter {
         
         // Reset change tracking if more than 3 seconds have passed
         if (now - this.lastChangeTime[playerIndex] > 3000) {
+            // If there was a pending change, add it to the undo stack
+            if (this.currentChanges[playerIndex] !== 0) {
+                this.undoStack.push({
+                    type: 'life',
+                    playerIndex: playerIndex,
+                    oldValue: this.players[playerIndex].life - this.currentChanges[playerIndex],
+                    newValue: this.players[playerIndex].life,
+                    totalChange: this.currentChanges[playerIndex]
+                });
+            }
             this.currentChanges[playerIndex] = 0;
         }
         
+        // Store old life before any changes
         const oldLife = this.players[playerIndex].life;
+        
         this.players[playerIndex].life += change;
         this.currentChanges[playerIndex] += change;
         this.lastChangeTime[playerIndex] = now;
