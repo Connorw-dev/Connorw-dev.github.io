@@ -232,6 +232,7 @@ class MTGCounter {
             this.setActivePlayer(this.currentPlayer);
             this.startTimer(this.currentPlayer);
             this.players[this.currentPlayer].turn = this.currentTurn;
+            this.updateAllDisplays();
         } else {
             // End current turn
             this.stopTimer(this.currentPlayer);
