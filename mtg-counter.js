@@ -510,7 +510,6 @@ class MTGCounter {
             this.startTimer(this.currentPlayer);
             this.updateAllDisplays();
         }
-    }
 }
 
 // Initialize the counter when the page loads
