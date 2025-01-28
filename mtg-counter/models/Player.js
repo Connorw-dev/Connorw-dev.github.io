@@ -1,5 +1,12 @@
 export class Player {
     constructor(id, life = 40) {
+        if (!Number.isInteger(id) || id < 0) {
+            throw new Error('Player ID must be a non-negative integer');
+        }
+        if (!Number.isInteger(life)) {
+            throw new Error('Life total must be an integer');
+        }
+        
         this.id = id;
         this.life = life;
         this.timer = 0;

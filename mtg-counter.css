@@ -1,10 +1,13 @@
 /* Root variables for consistent theming */
 :root {
+    /* Spacing */
+    --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
     
+    /* Colors */
     --player-1-color: rgba(187, 134, 252, 0.2);
     --player-2-color: rgba(3, 218, 198, 0.2);
     --player-3-color: rgba(255, 87, 51, 0.2);
@@ -12,8 +15,29 @@
     --player-5-color: rgba(255, 159, 64, 0.2);
     --player-6-color: rgba(153, 102, 255, 0.2);
     
+    /* UI States */
     --active-player-color: rgba(255, 255, 255, 0.3);
     --active-player-glow: 0 0 15px rgba(255, 255, 255, 0.3);
+    --button-hover-bg: rgba(255, 255, 255, 0.1);
+    --button-active-bg: rgba(255, 255, 255, 0.2);
+    
+    /* Typography */
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 3rem;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 300ms ease;
+    --transition-slow: 500ms ease;
+    
+    /* Z-index layers */
+    --z-dialog: 1000;
+    --z-overlay: 999;
+    --z-controls: 100;
 }
 
 .mtg-counter {
@@ -142,14 +166,26 @@ button {
     background-color: var(--card-bg-color);
     color: var(--text-color);
     border: 1px solid var(--accent-color);
-    padding: 10px 20px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
+    font-size: var(--font-size-md);
+    border-radius: 4px;
 }
 
 button:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
+    background-color: var(--button-hover-bg);
+    transform: translateY(-1px);
+}
+
+button:active {
+    background-color: var(--button-active-bg);
+    transform: translateY(1px);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 .game-control {

@@ -12,19 +12,41 @@ export class GameState {
     }
 
     save() {
-        const serializedState = {
-            ...this.state,
-            players: this.state.players.map(p => p.toJSON())
-        };
-        localStorage.setItem(GameState.STORAGE_KEY, JSON.stringify(serializedState));
+        try {
+            const serializedState = {
+                ...this.state,
+                players: this.state.players.map(p => p.toJSON())
+            };
+            localStorage.setItem(GameState.STORAGE_KEY, JSON.stringify(serializedState));
+            return true;
+        } catch (error) {
+            console.error('Failed to save game state:', error);
+            return false;
+        }
     }
 
     load() {
-        const savedState = localStorage.getItem(GameState.STORAGE_KEY);
-        if (savedState) {
-            return JSON.parse(savedState);
+        try {
+            const savedState = localStorage.getItem(GameState.STORAGE_KEY);
+            if (!savedState) return null;
+            
+            const parsed = JSON.parse(savedState);
+            if (!this.validateState(parsed)) {
+                throw new Error('Invalid state structure');
+            }
+            return parsed;
+        } catch (error) {
+            console.error('Failed to load game state:', error);
+            return null;
         }
-        return null;
+    }
+
+    validateState(state) {
+        return state 
+            && Array.isArray(state.players)
+            && typeof state.currentTurn === 'number'
+            && typeof state.playerCount === 'number'
+            && typeof state.gameStarted === 'boolean';
     }
 
     clear() {
