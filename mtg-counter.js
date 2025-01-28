@@ -20,11 +20,13 @@ class MTGCounter {
         this.changeIndicatorTimers = [];
         this.currentChanges = [];
         this.lastChangeTime = [];
+        this.players = [];
 
-        this.loadState();
         this.initializeArrays();
+        this.initializeNewGame();
         this.createPlayerElements();
         this.setupEventListeners();
+        this.loadState();
     }
 
     initializeArrays() {
@@ -196,7 +198,13 @@ class MTGCounter {
             this.toggleMenu();
         });
 
-        document.querySelectorAll('.player-container').forEach((container, index) => {
+        // Game control button
+        const gameControlBtn = document.getElementById('gameControl');
+        gameControlBtn.addEventListener('click', () => this.handleGameControl());
+
+        // Player controls
+        const containers = document.querySelectorAll('.player-container');
+        containers.forEach((container, index) => {
             const decrementBtn = container.querySelector('.decrement');
             const incrementBtn = container.querySelector('.increment');
             
@@ -233,10 +241,21 @@ class MTGCounter {
 
     toggleMenu() {
         const menuDialog = document.getElementById('menuDialog');
-        if (menuDialog.open) {
-            menuDialog.close();
-        } else {
-            menuDialog.showModal();
+        if (!menuDialog) {
+            console.error('Menu dialog not found');
+            return;
+        }
+        
+        try {
+            if (menuDialog.open) {
+                menuDialog.close();
+            } else {
+                menuDialog.showModal();
+            }
+        } catch (error) {
+            console.error('Error toggling menu:', error);
+            // Fallback to classic display toggle
+            menuDialog.style.display = menuDialog.style.display === 'none' ? 'flex' : 'none';
         }
     }
 
