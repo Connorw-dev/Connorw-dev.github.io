@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Magic: The Gathering life counter and turn tracker">
     <title>MTG Life Counter</title>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./mtg-counter.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -20,31 +20,33 @@
             </ul>
         </nav>
     </header>
-    <div class="mtg-counter">
-        <div class="players-container players-4">
+    
+    <main class="mtg-counter">
+        <section class="players-container players-4" aria-label="Player boards">
             <!-- Players will be dynamically added here -->
-        </div>
+        </section>
 
-        <div class="main-controls">
-            <button id="gameControl" class="game-control">Start Game</button>
-            <button id="pauseGame" class="game-control pause-button">Pause</button>
-            <button id="menuButton" class="game-control menu-button">Menu</button>
-        </div>
+        <section class="main-controls" aria-label="Game controls">
+            <button id="gameControl" class="game-control" aria-label="Start or end turn">Start Game</button>
+            <button id="pauseGame" class="game-control pause-button" aria-label="Pause game">Pause</button>
+            <button id="menuButton" class="game-control menu-button" aria-label="Open menu">Menu</button>
+        </section>
 
-        <div class="menu-overlay">
+        <dialog class="menu-overlay">
             <div class="menu-content">
                 <div class="player-count-control">
-                    <span>Players:</span>
-                    <button id="decreasePlayers" class="game-control">-</button>
-                    <span id="playerCount">4</span>
-                    <button id="increasePlayers" class="game-control">+</button>
+                    <label for="playerCount">Players:</label>
+                    <button id="decreasePlayers" class="game-control" aria-label="Decrease players">-</button>
+                    <output id="playerCount">4</output>
+                    <button id="increasePlayers" class="game-control" aria-label="Increase players">+</button>
                 </div>
-                <button id="undoAction" class="game-control undo-button">Undo</button>
-                <button id="restartGame" class="game-control restart-button">Restart Game</button>
-                <button id="closeMenu" class="game-control">Close Menu</button>
+                <button id="undoAction" class="game-control undo-button" aria-label="Undo last action">Undo</button>
+                <button id="restartGame" class="game-control restart-button" aria-label="Restart game">Restart Game</button>
+                <button id="closeMenu" class="game-control" aria-label="Close menu">Close Menu</button>
             </div>
-        </div>
-    </div>
-    <script src="./mtg-counter.js"></script>
+        </dialog>
+    </main>
+    
+    <script type="module" src="./mtg-counter.js"></script>
 </body>
 </html>

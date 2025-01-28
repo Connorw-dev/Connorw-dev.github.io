@@ -1,14 +1,27 @@
+/* Root variables for consistent theming */
+:root {
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    --player-1-color: rgba(187, 134, 252, 0.2);
+    --player-2-color: rgba(3, 218, 198, 0.2);
+    --player-3-color: rgba(255, 87, 51, 0.2);
+    --player-4-color: rgba(255, 193, 7, 0.2);
+    --player-5-color: rgba(255, 159, 64, 0.2);
+    --player-6-color: rgba(153, 102, 255, 0.2);
+    
+    --active-player-color: rgba(255, 255, 255, 0.3);
+    --active-player-glow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
 .mtg-counter {
-    min-height: calc(100vh - 60px);
-    margin: 0;
-    padding-top: 60px;
-    padding-bottom: 80px;
-    overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    min-height: 100vh;
+    padding: var(--spacing-xl) var(--spacing-md) var(--spacing-xl);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: var(--spacing-lg);
     position: relative;
 }
 
