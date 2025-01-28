@@ -16,14 +16,18 @@ class MTGCounter {
             this.gameStarted = state.gameStarted;
             this.currentTurn = state.currentTurn || 0;
             
-            // Update UI before starting timer
+            // Update UI elements
+            const gameControlBtn = document.getElementById('gameControl');
+            gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
+            
+            // Update all displays first
             this.updateAllDisplays();
             
-            // Restore game state
+            // If game is in progress, restore active player and timer
             if (this.gameStarted && this.currentPlayer !== null) {
-                document.getElementById('gameControl').textContent = 'End Turn';
                 this.setActivePlayer(this.currentPlayer);
-                requestAnimationFrame(() => this.startTimer(this.currentPlayer));
+                // Start timer on next frame to ensure DOM is ready
+                setTimeout(() => this.startTimer(this.currentPlayer), 0);
             }
         } else {
             this.players = Array.from({length: 4}, (_, i) => ({
@@ -148,16 +152,20 @@ class MTGCounter {
             const playerElement = document.querySelector(`#player${index + 1}`);
             playerElement.querySelector('.life').textContent = player.life;
             this.updateTimerDisplay(index);
+            
+            const turnCounter = playerElement.querySelector('.turn-counter');
             if (player.turn > 0) {
-                playerElement.querySelector('.turn-counter').textContent = `Turn ${player.turn}`;
+                turnCounter.textContent = `Turn ${player.turn}`;
+            } else {
+                turnCounter.textContent = '';
             }
         });
         
-        if (this.gameStarted) {
-            document.getElementById('gameControl').textContent = 'End Turn';
-            if (this.currentPlayer !== null) {
-                this.setActivePlayer(this.currentPlayer);
-            }
+        const gameControlBtn = document.getElementById('gameControl');
+        gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
+        
+        if (this.gameStarted && this.currentPlayer !== null) {
+            this.setActivePlayer(this.currentPlayer);
         }
     }
 

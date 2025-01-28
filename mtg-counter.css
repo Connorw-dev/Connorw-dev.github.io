@@ -97,9 +97,15 @@ button:hover {
     border-radius: 5px;
 }
 
+.game-control {
+    grid-area: c;
+    align-self: center;
+}
+
 .restart-button {
     grid-area: c;
-    margin-top: 120px;
+    align-self: end;
+    margin-bottom: 20px;
     background-color: #ff4444;
 }
 
