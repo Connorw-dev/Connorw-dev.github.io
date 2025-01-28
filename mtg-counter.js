@@ -526,7 +526,6 @@ class MTGCounter {
             this.startTimer(this.currentPlayer);
             this.updateAllDisplays();
         }
-        this.saveState();
     }
 }
 
