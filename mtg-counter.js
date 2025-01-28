@@ -217,9 +217,12 @@ class MTGCounter {
         const lastAction = this.undoStack.pop();
         
         if (lastAction.type === 'life') {
-            this.players[lastAction.playerIndex].life = lastAction.oldValue;
+            // Calculate the change that needs to be undone
+            const changeToUndo = lastAction.totalChange;
+            // Apply the reverse of that change
+            this.players[lastAction.playerIndex].life -= changeToUndo;
             const playerElement = document.querySelector(`#player${lastAction.playerIndex + 1}`);
-            playerElement.querySelector('.life').textContent = lastAction.oldValue;
+            playerElement.querySelector('.life').textContent = this.players[lastAction.playerIndex].life;
             
             // Show undo indicator
             let indicator = playerElement.querySelector('.change-indicator');
@@ -228,7 +231,7 @@ class MTGCounter {
                 indicator.className = 'change-indicator';
                 playerElement.querySelector('.life-counter').appendChild(indicator);
             }
-            indicator.textContent = `UNDO ${lastAction.totalChange > 0 ? '+' : ''}${lastAction.totalChange}`;
+            indicator.textContent = `UNDO ${changeToUndo > 0 ? '+' : ''}${changeToUndo}`;
             indicator.classList.remove('fade-out');
             
             setTimeout(() => {
