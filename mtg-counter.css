@@ -6,11 +6,12 @@
     overflow: hidden;
     display: grid;
     grid-template-areas: 
-        "p2 . p1"
-        ". c ."
-        "p3 . p4";
-    grid-template-columns: 1fr auto 1fr;
+        "p2 p1"
+        "c c"
+        "p3 p4";
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr auto 1fr;
+    gap: 20px;
 }
 
 .player-container {
@@ -54,6 +55,22 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    position: relative;
+}
+
+.change-indicator {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent-color);
+    opacity: 0.7;
+    font-size: 1.2em;
+    transition: opacity 0.3s ease;
+}
+
+.change-indicator.fade-out {
+    opacity: 0;
 }
 
 .life {
