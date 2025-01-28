@@ -15,12 +15,15 @@ class MTGCounter {
             this.currentPlayer = state.currentPlayer;
             this.gameStarted = state.gameStarted;
             this.currentTurn = state.currentTurn || 0;
+            
+            // Update UI before starting timer
             this.updateAllDisplays();
             
             // Restore game state
             if (this.gameStarted && this.currentPlayer !== null) {
                 document.getElementById('gameControl').textContent = 'End Turn';
-                this.startTimer(this.currentPlayer);
+                this.setActivePlayer(this.currentPlayer);
+                requestAnimationFrame(() => this.startTimer(this.currentPlayer));
             }
         } else {
             this.players = Array.from({length: 4}, (_, i) => ({
