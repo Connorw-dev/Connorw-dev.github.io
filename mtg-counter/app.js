@@ -58,6 +58,7 @@ class MTGCounter {
             player.turn = p.turn;
             player.isEliminated = p.isEliminated;
             player.eliminatedOnTurn = p.eliminatedOnTurn;
+            player.turnTimes = p.turnTimes || [0];  // Initialize turnTimes if not present in saved state
             return player;
         });
         this.currentPlayer = savedState.currentPlayer;
