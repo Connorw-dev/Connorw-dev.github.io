@@ -15,7 +15,12 @@ export class GameState {
         try {
             const serializedState = {
                 ...this.state,
-                players: this.state.players.map(p => p.toJSON())
+                players: this.state.players.map(p => ({
+                    id: p.id,
+                    life: p.life,
+                    timer: p.timer,
+                    turn: p.turn
+                }))
             };
             localStorage.setItem(GameState.STORAGE_KEY, JSON.stringify(serializedState));
             return true;

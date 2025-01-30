@@ -6,7 +6,12 @@
     gap: 20px;
     padding: 20px;
     min-height: 100vh;
-    margin-top: 60px;
+    margin-top: 40px;
+}
+
+header nav ul {
+    margin: 0;
+    padding: 10px 0;
 }
 
 .players-container {
@@ -81,6 +86,10 @@
     user-select: none;
 }
 
+.life-counter {
+    min-height: 120px;
+}
+
 .life-counter .decrement,
 .life-counter .increment {
     cursor: pointer;
@@ -90,6 +99,9 @@
     justify-content: center;
     font-size: 1.5rem;
     color: var(--accent-color);
+    min-height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .life-counter .decrement {
