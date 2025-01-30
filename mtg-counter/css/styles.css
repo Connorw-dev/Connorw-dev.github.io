@@ -58,6 +58,12 @@ header nav ul {
     gap: 2rem;
 }
 
+/* Reorder grid items for clockwise layout */
+.players-4 > div:nth-child(1) { order: 1; }  /* Top left */
+.players-4 > div:nth-child(2) { order: 2; }  /* Top right */
+.players-4 > div:nth-child(3) { order: 4; }  /* Bottom right */
+.players-4 > div:nth-child(4) { order: 3; }  /* Bottom left */
+
 .players-5 {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr) auto;
@@ -69,11 +75,26 @@ header nav ul {
     width: 50%;
 }
 
+/* Reorder grid items for clockwise layout */
+.players-5 > div:nth-child(1) { order: 1; }  /* Top left */
+.players-5 > div:nth-child(2) { order: 2; }  /* Top right */
+.players-5 > div:nth-child(3) { order: 4; }  /* Bottom right */
+.players-5 > div:nth-child(4) { order: 3; }  /* Bottom left */
+.players-5 > div:nth-child(5) { order: 5; }  /* Bottom center */
+
 .players-6 {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 2rem;
 }
+
+/* Reorder grid items for clockwise layout */
+.players-6 > div:nth-child(1) { order: 1; }  /* Top left */
+.players-6 > div:nth-child(2) { order: 2; }  /* Top right */
+.players-6 > div:nth-child(3) { order: 4; }  /* Middle right */
+.players-6 > div:nth-child(4) { order: 6; }  /* Bottom right */
+.players-6 > div:nth-child(5) { order: 5; }  /* Bottom left */
+.players-6 > div:nth-child(6) { order: 3; }  /* Middle left */
 
 .player-container {
     background-color: var(--card-bg-color);
