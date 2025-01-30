@@ -112,8 +112,10 @@ class MTGCounter {
             const playerDiv = document.createElement('div');
             playerDiv.className = 'player-container';
             playerDiv.id = `player${i + 1}`;
+            playerDiv.setAttribute('data-player', i + 1);
             
             playerDiv.innerHTML = `
+                <div class="player-label">Player ${i + 1}</div>
                 <div class="life-counter">
                     <div class="decrement">−</div>
                     <div class="life">40</div>
@@ -195,9 +197,16 @@ class MTGCounter {
                 player.life = 40;
                 player.timer = 0;
                 player.turn = 0;
+                player.isEliminated = false;
+                player.eliminatedOnTurn = null;
                 return player;
             }
         );
+
+        // Remove eliminated visual state
+        document.querySelectorAll('.player-container').forEach(container => {
+            container.classList.remove('eliminated');
+        });
         this.currentPlayer = null;
         this.gameStarted = false;
         this.currentTurn = 0;
@@ -535,6 +544,17 @@ class MTGCounter {
     /**
      * End the current player's turn and start the next player's turn
      */
+    findNextActivePlayer(currentIndex) {
+        let nextIndex = currentIndex;
+        do {
+            nextIndex = (nextIndex + 1) % this.playerCount;
+            if (!this.players[nextIndex].isEliminated) {
+                return nextIndex;
+            }
+        } while (nextIndex !== currentIndex);
+        return null; // Should never happen as we check for game over when eliminating
+    }
+
     endCurrentTurn() {
         // Store state for undo
         const oldPlayer = this.currentPlayer;
@@ -543,7 +563,7 @@ class MTGCounter {
         // End current turn
         this.stopTimer(this.currentPlayer);
         const currentPlayerIndex = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount].indexOf(this.currentPlayer);
-        this.currentPlayer = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][(currentPlayerIndex + 1) % this.playerCount];
+        this.currentPlayer = this.findNextActivePlayer(currentPlayerIndex);
         
         // Increment turn counter when we loop back to first player
         if (this.currentPlayer === GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0]) {

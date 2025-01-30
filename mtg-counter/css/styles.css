@@ -87,6 +87,22 @@ header nav ul {
     transition: all 0.3s ease;
 }
 
+.player-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.player-container[data-player="1"] { border-left: 5px solid #ff4444; }
+.player-container[data-player="2"] { border-left: 5px solid #44ff44; }
+.player-container[data-player="3"] { border-left: 5px solid #4444ff; }
+.player-container[data-player="4"] { border-left: 5px solid #ffff44; }
+.player-container[data-player="5"] { border-left: 5px solid #ff44ff; }
+.player-container[data-player="6"] { border-left: 5px solid #44ffff; }
+
 .active-player {
     box-shadow: 0 0 15px var(--accent-color);
     transform: scale(1.02);
