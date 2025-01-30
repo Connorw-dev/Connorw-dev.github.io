@@ -32,21 +32,19 @@
             <button id="menuButton" class="game-control menu-button" aria-label="Open menu">Menu</button>
         </section>
 
-        <dialog class="menu-overlay" id="menuDialog" hidden>
-            <form method="dialog">
-                <div class="menu-content">
-                    <div class="player-count-control">
-                        <label for="playerCount">Players:</label>
-                        <button type="button" id="decreasePlayers" class="game-control" aria-label="Decrease players">-</button>
-                        <output id="playerCount">4</output>
-                        <button type="button" id="increasePlayers" class="game-control" aria-label="Increase players">+</button>
-                    </div>
-                    <button type="button" id="undoAction" class="game-control undo-button">Undo</button>
-                    <button type="button" id="restartGame" class="game-control restart-button">Restart Game</button>
-                    <button type="submit" class="game-control">Close Menu</button>
+        <div id="menuOverlay" class="menu-overlay hidden">
+            <div class="menu-content">
+                <button id="closeMenu" class="close-button" aria-label="Close menu">×</button>
+                <div class="player-count-control">
+                    <label>Players:</label>
+                    <button id="decreasePlayers" class="game-control">-</button>
+                    <span id="playerCount">4</span>
+                    <button id="increasePlayers" class="game-control">+</button>
                 </div>
-            </form>
-        </dialog>
+                <button id="undoAction" class="game-control">Undo</button>
+                <button id="restartGame" class="game-control">Restart Game</button>
+            </div>
+        </div>
     </main>
     
     <script type="module" src="./app.js"></script>

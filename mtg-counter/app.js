@@ -204,19 +204,14 @@ class MTGCounter {
     setupEventListeners() {
         // Menu controls
         document.getElementById('menuButton').addEventListener('click', () => this.toggleMenu());
+        document.getElementById('closeMenu').addEventListener('click', () => this.toggleMenu());
         document.getElementById('increasePlayers').addEventListener('click', () => this.changePlayerCount(1));
         document.getElementById('decreasePlayers').addEventListener('click', () => this.changePlayerCount(-1));
         
         // Game control buttons
-        document.getElementById('restartGame').addEventListener('click', () => {
-            this.resetGame();
-            this.toggleMenu();
-        });
+        document.getElementById('restartGame').addEventListener('click', () => this.resetGame());
         document.getElementById('pauseGame').addEventListener('click', () => this.togglePause());
-        document.getElementById('undoAction').addEventListener('click', () => {
-            this.undo();
-            this.toggleMenu();
-        });
+        document.getElementById('undoAction').addEventListener('click', () => this.undo());
 
 
         const gameControlBtn = document.getElementById('gameControl');
@@ -227,14 +222,8 @@ class MTGCounter {
     }
 
     toggleMenu() {
-        const menuDialog = document.getElementById('menuDialog');
-        if (!menuDialog) return;
-        
-        if (menuDialog.open) {
-            menuDialog.close();
-        } else {
-            menuDialog.showModal();
-        }
+        const menuOverlay = document.getElementById('menuOverlay');
+        menuOverlay.classList.toggle('hidden');
     }
 
     changePlayerCount(change) {
