@@ -1,6 +1,6 @@
-import { Player } from '../models/Player.js';
-import { GameState } from '../services/GameState.js';
-import { GAME_CONSTANTS } from '../config/constants.js';
+import { Player } from './models/Player.js';
+import { GameState } from './services/GameState.js';
+import { GAME_CONSTANTS } from './config/constants.js';
 
 /**
  * MTG Life Counter Application
@@ -156,13 +156,10 @@ class MTGCounter {
         });
 
         // Reset to initial state
-        this.players = Array.from({length: this.playerCount}, (_, i) => ({
-            id: i + 1,
-            life: 40,
-            timer: 0,
-            timerInterval: null,
-            turn: 0
-        }));
+        this.players = Array.from(
+            { length: this.playerCount }, 
+            (_, i) => new Player(i)
+        );
         this.currentPlayer = null;
         this.gameStarted = false;
         this.currentTurn = 0;
@@ -198,35 +195,6 @@ class MTGCounter {
             this.toggleMenu();
         });
 
-        // Player controls
-        const containers = document.querySelectorAll('.player-container');
-        containers.forEach((container, index) => {
-            const decrementBtn = container.querySelector('.decrement');
-            const incrementBtn = container.querySelector('.increment');
-            
-            // Mouse events for decrement
-            decrementBtn.addEventListener('mousedown', () => this.startLongPress(index, -1));
-            decrementBtn.addEventListener('mouseup', () => this.endLongPress(index, -1));
-            decrementBtn.addEventListener('mouseleave', () => this.endLongPress(index, -1));
-            
-            // Mouse events for increment
-            incrementBtn.addEventListener('mousedown', () => this.startLongPress(index, 1));
-            incrementBtn.addEventListener('mouseup', () => this.endLongPress(index, 1));
-            incrementBtn.addEventListener('mouseleave', () => this.endLongPress(index, 1));
-            
-            // Touch events for mobile
-            decrementBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                this.startLongPress(index, -1);
-            });
-            decrementBtn.addEventListener('touchend', () => this.endLongPress(index, -1));
-            
-            incrementBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                this.startLongPress(index, 1);
-            });
-            incrementBtn.addEventListener('touchend', () => this.endLongPress(index, 1));
-        });
 
         const gameControlBtn = document.getElementById('gameControl');
         gameControlBtn.addEventListener('click', () => this.handleGameControl());
