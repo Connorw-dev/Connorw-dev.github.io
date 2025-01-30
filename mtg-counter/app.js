@@ -247,28 +247,19 @@ class MTGCounter {
             console.error('Menu dialog not found');
             return;
         }
-        
-        // Prevent multiple toggles in quick succession
-        if (this._menuToggling) {
-            console.log('Menu toggle in progress, ignoring');
-            return;
-        }
-        
-        this._menuToggling = true;
-        
+
         try {
-            if (menuDialog.hasAttribute('open')) {
+            if (menuDialog.open) {
                 console.log('Closing menu dialog');
                 menuDialog.close();
+                // Remove any lingering open attribute
+                menuDialog.removeAttribute('open');
             } else {
                 console.log('Opening menu dialog');
                 menuDialog.showModal();
             }
-        } finally {
-            // Reset after a short delay to prevent rapid toggling
-            setTimeout(() => {
-                this._menuToggling = false;
-            }, 100);
+        } catch (error) {
+            console.error('Error in toggleMenu:', error);
         }
     }
 

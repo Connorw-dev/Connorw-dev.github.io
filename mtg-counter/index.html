@@ -32,8 +32,8 @@
             <button id="menuButton" class="game-control menu-button" aria-label="Open menu">Menu</button>
         </section>
 
-        <dialog class="menu-overlay" id="menuDialog" aria-modal="true">
-            <div class="menu-content">
+        <dialog class="menu-overlay" id="menuDialog" aria-modal="true" onclick="event.stopPropagation()">
+            <div class="menu-content" onclick="event.stopPropagation()">
                 <div class="player-count-control">
                     <label for="playerCount">Players:</label>
                     <button id="decreasePlayers" class="game-control" aria-label="Decrease players">-</button>
