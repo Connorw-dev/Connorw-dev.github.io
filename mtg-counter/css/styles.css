@@ -321,14 +321,43 @@ canvas#turnTimeChart {
 
 @media (max-width: 768px) {
     .players-container {
-        grid-template-columns: 1fr !important;
+        padding: 10px;
+        gap: 10px;
+        min-height: unset;
     }
-    
+
+    .players-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, minmax(200px, 1fr));
+    }
+
     .life-counter {
-        font-size: 2em;
+        font-size: 1.5em;
+        min-height: 80px;
     }
-    
+
+    .life-counter .decrement,
+    .life-counter .increment {
+        padding: 10px;
+    }
+
     .main-controls {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .player-container {
+        padding: 10px;
+    }
+
+    .timer {
+        font-size: 1.2em;
+    }
+
+    .turn-counter {
+        font-size: 1em;
     }
 }
