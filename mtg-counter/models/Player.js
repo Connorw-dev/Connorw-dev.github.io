@@ -12,6 +12,8 @@ export class Player {
         this.timer = 0;
         this.timerInterval = null;
         this.turn = 0;
+        this.isEliminated = false;
+        this.eliminatedOnTurn = null;
     }
 
     resetState() {
@@ -26,7 +28,9 @@ export class Player {
             id: this.id,
             life: this.life,
             timer: this.timer,
-            turn: this.turn
+            turn: this.turn,
+            isEliminated: this.isEliminated,
+            eliminatedOnTurn: this.eliminatedOnTurn
         };
         return json;
     }

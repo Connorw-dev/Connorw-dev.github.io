@@ -121,6 +121,7 @@ class MTGCounter {
                 </div>
                 <div class="timer">00:00</div>
                 <div class="turn-counter"></div>
+                <button class="kill-button">Eliminate Player</button>
             `;
             
             container.appendChild(playerDiv);
@@ -134,6 +135,8 @@ class MTGCounter {
 
     setupPlayerEventListeners() {
         document.querySelectorAll('.player-container').forEach((container, index) => {
+            // Add kill button listener
+            container.querySelector('.kill-button').addEventListener('click', () => this.eliminatePlayer(index));
             const decrementArea = container.querySelector('.decrement');
             const incrementArea = container.querySelector('.increment');
             
@@ -216,6 +219,10 @@ class MTGCounter {
         document.getElementById('restartGame').addEventListener('click', () => this.resetGame());
         document.getElementById('pauseGame').addEventListener('click', () => this.togglePause());
         document.getElementById('undoAction').addEventListener('click', () => this.undo());
+        document.getElementById('newGameButton')?.addEventListener('click', () => {
+            document.getElementById('gameOverOverlay').classList.add('hidden');
+            this.resetGame();
+        });
 
 
         const gameControlBtn = document.getElementById('gameControl');
@@ -398,6 +405,12 @@ class MTGCounter {
             setTimeout(() => {
                 indicator.classList.add('fade-out');
             }, 3000);
+        } else if (lastAction.type === 'elimination') {
+            const player = this.players[lastAction.playerIndex];
+            player.isEliminated = false;
+            player.eliminatedOnTurn = null;
+            const playerElement = document.querySelector(`#player${lastAction.playerIndex + 1}`);
+            playerElement.classList.remove('eliminated');
         } else if (lastAction.type === 'turn') {
             this.currentPlayer = lastAction.oldPlayer;
             this.currentTurn = lastAction.oldTurn;
@@ -552,6 +565,68 @@ class MTGCounter {
             this.startTimer(this.currentPlayer);
             this.updateAllDisplays();
         }
+
+    eliminatePlayer(playerIndex) {
+        if (!this.gameStarted || this.players[playerIndex].isEliminated) return;
+
+        const player = this.players[playerIndex];
+        player.isEliminated = true;
+        player.eliminatedOnTurn = this.currentTurn;
+        
+        // Add to undo stack
+        this.undoStack.push({
+            type: 'elimination',
+            playerIndex: playerIndex,
+            eliminatedOnTurn: this.currentTurn
+        });
+
+        // Update UI
+        const playerElement = document.querySelector(`#player${playerIndex + 1}`);
+        playerElement.classList.add('eliminated');
+
+        // Stop timer if it was the current player
+        if (this.currentPlayer === playerIndex) {
+            this.stopTimer(playerIndex);
+            this.endCurrentTurn();
+        }
+
+        // Check for game over
+        const activePlayers = this.players.filter(p => !p.isEliminated);
+        if (activePlayers.length === 1) {
+            this.showGameOver(activePlayers[0]);
+        }
+
+        this.saveState();
+    }
+
+    showGameOver(winner) {
+        const gameStats = document.getElementById('gameStats');
+        let statsHtml = `<p>Winner: Player ${winner.id + 1}</p>`;
+        statsHtml += '<h3>Game Statistics:</h3>';
+        
+        // Calculate total game time
+        const totalTime = this.players.reduce((total, p) => total + p.timer, 0);
+        const totalMinutes = Math.floor(totalTime / 60);
+        const totalSeconds = totalTime % 60;
+        
+        statsHtml += `<p>Total Game Time: ${totalMinutes}:${totalSeconds.toString().padStart(2, '0')}</p>`;
+        statsHtml += '<h4>Player Details:</h4>';
+        
+        this.players.forEach((player, index) => {
+            const minutes = Math.floor(player.timer / 60);
+            const seconds = player.timer % 60;
+            statsHtml += `<p>Player ${index + 1}: `;
+            if (player === winner) {
+                statsHtml += 'WINNER';
+            } else {
+                statsHtml += `Eliminated on turn ${player.eliminatedOnTurn}`;
+            }
+            statsHtml += ` (${minutes}:${seconds.toString().padStart(2, '0')})</p>`;
+        });
+        
+        gameStats.innerHTML = statsHtml;
+        document.getElementById('gameOverOverlay').classList.remove('hidden');
+    }
 }
 
 // Initialize the counter when the page loads

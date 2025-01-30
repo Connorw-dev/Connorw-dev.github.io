@@ -186,6 +186,47 @@ header nav ul {
     max-width: 90%;
 }
 
+.game-over-content {
+    text-align: center;
+}
+
+.game-over-content h2 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.eliminated {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.eliminated::after {
+    content: 'ELIMINATED';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 2em;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    padding: 0.5em;
+    pointer-events: none;
+}
+
+.kill-button {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.kill-button:hover {
+    background-color: #cc0000;
+}
+
 .player-count-control {
     display: flex;
     align-items: center;
