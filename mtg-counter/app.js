@@ -25,6 +25,12 @@ class MTGCounter {
         this.gameStarted = false;
         this.currentTurn = 0;
 
+        // Initialize the menu in a closed state
+        const menuDialog = document.getElementById('menuDialog');
+        if (menuDialog && menuDialog.open) {
+            menuDialog.close();
+        }
+
         this.initializeArrays();
         this.createPlayerElements();
         this.setupEventListeners();
@@ -222,7 +228,11 @@ class MTGCounter {
 
     toggleMenu() {
         const menuDialog = document.getElementById('menuDialog');
-        if (!menuDialog.open) {
+        if (!menuDialog) return;
+        
+        if (menuDialog.open) {
+            menuDialog.close();
+        } else {
             menuDialog.showModal();
         }
     }
