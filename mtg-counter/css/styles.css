@@ -221,6 +221,8 @@ header nav ul {
     gap: 1.5rem;
     min-width: 250px;
     max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .game-over-content {

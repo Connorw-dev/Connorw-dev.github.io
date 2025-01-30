@@ -574,16 +574,12 @@ class MTGCounter {
         
         // End current turn
         this.stopTimer(this.currentPlayer);
-        const playerOrder = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount];
-        const currentIndex = playerOrder.indexOf(this.currentPlayer);
-        let nextIndex = (currentIndex + 1) % this.playerCount;
         
-        // Find next non-eliminated player
-        while (this.players[playerOrder[nextIndex]].isEliminated && nextIndex !== currentIndex) {
-            nextIndex = (nextIndex + 1) % this.playerCount;
-        }
+        // Find next non-eliminated player in clockwise order
+        let nextPlayer = this.findNextActivePlayer(this.currentPlayer);
+        if (nextPlayer === null) return; // Should never happen as we check for game over
         
-        this.currentPlayer = playerOrder[nextIndex];
+        this.currentPlayer = nextPlayer;
         
         // Increment turn counter when we loop back to first player
         if (this.currentPlayer === GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0]) {
