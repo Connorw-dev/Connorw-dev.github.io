@@ -117,10 +117,10 @@
     color: var(--text-color);
     padding: 20px;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+    margin: 0;
 }
 
 .menu-overlay::backdrop {

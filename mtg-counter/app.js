@@ -236,29 +236,19 @@ class MTGCounter {
     toggleMenu() {
         const menuDialog = document.getElementById('menuDialog');
         console.log('Toggle Menu called, dialog:', menuDialog);
-        console.log('Current dialog state:', menuDialog ? menuDialog.open : 'no dialog');
-        console.log('Stack trace:', new Error().stack);
         
         if (!menuDialog) {
             console.error('Menu dialog not found');
             return;
         }
         
-        try {
-            if (menuDialog.open) {
-                console.log('Closing menu dialog');
-                menuDialog.close();
-                // Prevent any default behaviors
-                return false;
-            } else {
-                console.log('Opening menu dialog');
-                menuDialog.showModal();
-            }
-        } catch (error) {
-            console.error('Error in toggleMenu:', error);
+        if (menuDialog.hasAttribute('open')) {
+            console.log('Closing menu dialog');
+            menuDialog.close();
+        } else {
+            console.log('Opening menu dialog');
+            menuDialog.showModal();
         }
-        console.log('Menu state after toggle:', menuDialog.open);
-        return false;
     }
 
     changePlayerCount(change) {
