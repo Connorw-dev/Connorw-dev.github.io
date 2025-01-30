@@ -92,6 +92,7 @@ class MTGCounter {
                 player.life = 40;
                 player.timer = 0;
                 player.turn = 0;
+                player.turnTimes = [0]; // Array to store cumulative time at each turn
                 return player;
             }
         );
@@ -595,6 +596,12 @@ class MTGCounter {
                 newPlayerOldTimer: this.players[this.currentPlayer].timer
             });
             
+            // Record cumulative time for the previous player at this turn
+            const prevPlayer = this.players[oldPlayer];
+            while (prevPlayer.turnTimes.length <= this.currentTurn) {
+                prevPlayer.turnTimes.push(prevPlayer.timer);
+            }
+
             this.players[this.currentPlayer].turn = this.currentTurn;
             this.setActivePlayer(this.currentPlayer);
             this.startTimer(this.currentPlayer);
@@ -658,8 +665,65 @@ class MTGCounter {
             }
             statsHtml += ` (${minutes}:${seconds.toString().padStart(2, '0')})</p>`;
         });
+
+        // Add canvas for the chart
+        statsHtml += '<canvas id="turnTimeChart" class="turn-time-chart"></canvas>';
         
         gameStats.innerHTML = statsHtml;
+
+        // Create the turn time chart
+        const ctx = document.getElementById('turnTimeChart').getContext('2d');
+        const playerColors = [
+            '#ff4444', // Player 1 - Red
+            '#44ff44', // Player 2 - Green
+            '#4444ff', // Player 3 - Blue
+            '#ffff44', // Player 4 - Yellow
+            '#ff44ff', // Player 5 - Magenta
+            '#44ffff'  // Player 6 - Cyan
+        ];
+
+        const datasets = this.players.map((player, index) => ({
+            label: `Player ${index + 1}`,
+            data: player.turnTimes,
+            borderColor: playerColors[index],
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            pointRadius: 4,
+            tension: 0.1
+        }));
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: this.currentTurn + 1}, (_, i) => `Turn ${i}`),
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cumulative Time (seconds)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Turn Number'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
         document.getElementById('gameOverOverlay').classList.remove('hidden');
     }
 }
