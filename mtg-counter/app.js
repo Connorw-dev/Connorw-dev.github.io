@@ -208,10 +208,7 @@ class MTGCounter {
 
     setupEventListeners() {
         // Menu controls
-        document.getElementById('menuButton').addEventListener('click', () => {
-            const menuOverlay = document.getElementById('menuOverlay');
-            menuOverlay.classList.remove('hidden');
-        });
+        document.getElementById('menuButton').addEventListener('click', () => this.toggleMenu());
         document.getElementById('increasePlayers').addEventListener('click', () => this.changePlayerCount(1));
         document.getElementById('decreasePlayers').addEventListener('click', () => this.changePlayerCount(-1));
         
@@ -230,7 +227,13 @@ class MTGCounter {
 
     toggleMenu() {
         const menuOverlay = document.getElementById('menuOverlay');
-        menuOverlay.classList.toggle('hidden');
+        if (!menuOverlay) return;
+        
+        if (menuOverlay.classList.contains('hidden')) {
+            menuOverlay.classList.remove('hidden');
+        } else {
+            menuOverlay.classList.add('hidden');
+        }
     }
 
     changePlayerCount(change) {
