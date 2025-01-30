@@ -197,10 +197,22 @@ class MTGCounter {
 
     setupEventListeners() {
         // Menu controls
-        document.getElementById('menuButton').addEventListener('click', () => this.toggleMenu());
-        document.getElementById('closeMenu').addEventListener('click', () => this.toggleMenu());
-        document.getElementById('increasePlayers').addEventListener('click', () => this.changePlayerCount(1));
-        document.getElementById('decreasePlayers').addEventListener('click', () => this.changePlayerCount(-1));
+        document.getElementById('menuButton').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggleMenu();
+        });
+        document.getElementById('closeMenu').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggleMenu();
+        });
+        document.getElementById('increasePlayers').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.changePlayerCount(1);
+        });
+        document.getElementById('decreasePlayers').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.changePlayerCount(-1);
+        });
         
         // Game control buttons
         document.getElementById('restartGame').addEventListener('click', () => {
@@ -225,6 +237,7 @@ class MTGCounter {
         const menuDialog = document.getElementById('menuDialog');
         console.log('Toggle Menu called, dialog:', menuDialog);
         console.log('Current dialog state:', menuDialog ? menuDialog.open : 'no dialog');
+        console.log('Stack trace:', new Error().stack);
         
         if (!menuDialog) {
             console.error('Menu dialog not found');
@@ -235,6 +248,8 @@ class MTGCounter {
             if (menuDialog.open) {
                 console.log('Closing menu dialog');
                 menuDialog.close();
+                // Prevent any default behaviors
+                return false;
             } else {
                 console.log('Opening menu dialog');
                 menuDialog.showModal();
@@ -243,6 +258,7 @@ class MTGCounter {
             console.error('Error in toggleMenu:', error);
         }
         console.log('Menu state after toggle:', menuDialog.open);
+        return false;
     }
 
     changePlayerCount(change) {
