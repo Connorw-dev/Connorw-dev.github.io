@@ -32,9 +32,8 @@
             <button id="menuButton" class="game-control menu-button" aria-label="Open menu">Menu</button>
         </section>
 
-        <div id="menuOverlay" class="menu-overlay hidden">
-            <div class="menu-content">
-                <button id="closeMenu" class="close-button" aria-label="Close menu">×</button>
+        <div id="menuOverlay" class="menu-overlay hidden" onclick="this.classList.add('hidden')">
+            <div class="menu-content" onclick="event.stopPropagation()">
                 <div class="player-count-control">
                     <label>Players:</label>
                     <button id="decreasePlayers" class="game-control">-</button>

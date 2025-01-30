@@ -164,7 +164,12 @@ class MTGCounter {
 
     saveState() {
         this.gameState.state = {
-            players: this.players.map(p => p.toJSON()),
+            players: this.players.map(p => ({
+                id: p.id,
+                life: p.life,
+                timer: p.timer,
+                turn: p.turn
+            })),
             currentPlayer: this.currentPlayer,
             gameStarted: this.gameStarted,
             currentTurn: this.currentTurn,
@@ -203,8 +208,10 @@ class MTGCounter {
 
     setupEventListeners() {
         // Menu controls
-        document.getElementById('menuButton').addEventListener('click', () => this.toggleMenu());
-        document.getElementById('closeMenu').addEventListener('click', () => this.toggleMenu());
+        document.getElementById('menuButton').addEventListener('click', () => {
+            const menuOverlay = document.getElementById('menuOverlay');
+            menuOverlay.classList.remove('hidden');
+        });
         document.getElementById('increasePlayers').addEventListener('click', () => this.changePlayerCount(1));
         document.getElementById('decreasePlayers').addEventListener('click', () => this.changePlayerCount(-1));
         
