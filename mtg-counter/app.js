@@ -710,6 +710,11 @@ class MTGCounter {
                         title: {
                             display: true,
                             text: 'Cumulative Time (seconds)'
+                        },
+                        min: 0,
+                        max: Math.max(...this.players.map(p => Math.max(...p.turnTimes))) + 30,
+                        ticks: {
+                            stepSize: 30
                         }
                     },
                     x: {

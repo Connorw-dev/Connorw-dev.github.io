@@ -8,10 +8,10 @@ export const GAME_CONSTANTS = {
     TIMER_INTERVAL: 1000,
     
     PLAYER_ORDERS: {
-        2: [0, 1],
-        3: [0, 1, 2],
-        4: [0, 1, 2, 3],  // Clockwise: top-left, top-right, bottom-right, bottom-left
-        5: [0, 1, 2, 3, 4],
-        6: [0, 1, 2, 3, 4, 5]
+        2: [0, 1],                    // Left to right
+        3: [0, 1, 2],                 // Top left, top right, bottom center
+        4: [0, 1, 3, 2],             // Top left, top right, bottom left, bottom right (clockwise)
+        5: [0, 1, 3, 2, 4],          // Top left, top right, bottom left, bottom right, bottom center (clockwise)
+        6: [0, 1, 3, 5, 4, 2]        // Top left, top right, bottom left, bottom middle left, bottom right, middle right (clockwise)
     }
 };
