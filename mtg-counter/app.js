@@ -181,7 +181,10 @@ class MTGCounter {
                 id: p.id,
                 life: p.life,
                 timer: p.timer,
-                turn: p.turn
+                turn: p.turn,
+                turnTimes: p.turnTimes,
+                isEliminated: p.isEliminated,
+                eliminatedOnTurn: p.eliminatedOnTurn
             })),
             currentPlayer: this.currentPlayer,
             gameStarted: this.gameStarted,
