@@ -22,11 +22,12 @@ export class Player {
     }
 
     toJSON() {
-        return {
+        const json = {
             id: this.id,
             life: this.life,
             timer: this.timer,
             turn: this.turn
         };
+        return json;
     }
 }
