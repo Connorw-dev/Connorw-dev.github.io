@@ -115,9 +115,9 @@ class MTGCounter {
             
             playerDiv.innerHTML = `
                 <div class="life-counter">
-                    <button class="decrement">-</button>
-                    <span class="life">40</span>
-                    <button class="increment">+</button>
+                    <div class="decrement">−</div>
+                    <div class="life">40</div>
+                    <div class="increment">+</div>
                 </div>
                 <div class="timer">00:00</div>
                 <div class="turn-counter"></div>
@@ -134,31 +134,31 @@ class MTGCounter {
 
     setupPlayerEventListeners() {
         document.querySelectorAll('.player-container').forEach((container, index) => {
-            const decrementBtn = container.querySelector('.decrement');
-            const incrementBtn = container.querySelector('.increment');
+            const decrementArea = container.querySelector('.decrement');
+            const incrementArea = container.querySelector('.increment');
             
             // Mouse events for decrement
-            decrementBtn.addEventListener('mousedown', () => this.startLongPress(index, -1));
-            decrementBtn.addEventListener('mouseup', () => this.endLongPress(index, -1));
-            decrementBtn.addEventListener('mouseleave', () => this.endLongPress(index, -1));
+            decrementArea.addEventListener('mousedown', () => this.startLongPress(index, -1));
+            decrementArea.addEventListener('mouseup', () => this.endLongPress(index, -1));
+            decrementArea.addEventListener('mouseleave', () => this.endLongPress(index, -1));
             
             // Mouse events for increment
-            incrementBtn.addEventListener('mousedown', () => this.startLongPress(index, 1));
-            incrementBtn.addEventListener('mouseup', () => this.endLongPress(index, 1));
-            incrementBtn.addEventListener('mouseleave', () => this.endLongPress(index, 1));
+            incrementArea.addEventListener('mousedown', () => this.startLongPress(index, 1));
+            incrementArea.addEventListener('mouseup', () => this.endLongPress(index, 1));
+            incrementArea.addEventListener('mouseleave', () => this.endLongPress(index, 1));
             
             // Touch events for mobile
-            decrementBtn.addEventListener('touchstart', (e) => {
+            decrementArea.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 this.startLongPress(index, -1);
             });
-            decrementBtn.addEventListener('touchend', () => this.endLongPress(index, -1));
+            decrementArea.addEventListener('touchend', () => this.endLongPress(index, -1));
             
-            incrementBtn.addEventListener('touchstart', (e) => {
+            incrementArea.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 this.startLongPress(index, 1);
             });
-            incrementBtn.addEventListener('touchend', () => this.endLongPress(index, 1));
+            incrementArea.addEventListener('touchend', () => this.endLongPress(index, 1));
         });
     }
 
