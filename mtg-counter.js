@@ -21,12 +21,21 @@ class MTGCounter {
         this.currentChanges = [];
         this.lastChangeTime = [];
         this.players = [];
+        this.currentPlayer = null;
+        this.gameStarted = false;
+        this.currentTurn = 0;
 
         this.initializeArrays();
-        this.initializeNewGame();
         this.createPlayerElements();
         this.setupEventListeners();
-        this.loadState();
+        
+        // Try to load saved state, or initialize new game if none exists
+        const savedState = this.gameState.load();
+        if (savedState) {
+            this.loadState(savedState);
+        } else {
+            this.initializeNewGame();
+        }
     }
 
     initializeArrays() {
@@ -35,35 +44,29 @@ class MTGCounter {
         this.lastChangeTime = new Array(this.playerCount).fill(0);
     }
 
-    loadState() {
-        const savedState = localStorage.getItem('mtgCounterState');
-        if (savedState) {
-            const state = JSON.parse(savedState);
-            this.playerCount = state.playerCount || 4;
-            this.players = state.players.map(p => ({...p, timerInterval: null}));
-            this.currentPlayer = state.currentPlayer;
-            this.gameStarted = state.gameStarted;
-            this.currentTurn = state.currentTurn || 0;
-            
-            this.initializeArrays();
-            this.createPlayerElements();
-            
-            // Update UI elements
-            const gameControlBtn = document.getElementById('gameControl');
-            gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
-            document.getElementById('playerCount').textContent = this.playerCount;
-            
-            // Update all displays first
-            this.updateAllDisplays();
-            
-            // If game is in progress, restore active player and timer
-            if (this.gameStarted && this.currentPlayer !== null) {
-                this.setActivePlayer(this.currentPlayer);
-                // Start timer on next frame to ensure DOM is ready
-                setTimeout(() => this.startTimer(this.currentPlayer), 0);
-            }
-        } else {
-            this.initializeNewGame();
+    loadState(savedState) {
+        this.playerCount = savedState.playerCount;
+        this.players = savedState.players.map(p => new Player(p.id, p.life));
+        this.currentPlayer = savedState.currentPlayer;
+        this.gameStarted = savedState.gameStarted;
+        this.currentTurn = savedState.currentTurn;
+        
+        this.initializeArrays();
+        this.createPlayerElements();
+        
+        // Update UI elements
+        const gameControlBtn = document.getElementById('gameControl');
+        gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
+        document.getElementById('playerCount').textContent = this.playerCount;
+        
+        // Update all displays first
+        this.updateAllDisplays();
+        
+        // If game is in progress, restore active player and timer
+        if (this.gameStarted && this.currentPlayer !== null) {
+            this.setActivePlayer(this.currentPlayer);
+            // Start timer on next frame to ensure DOM is ready
+            setTimeout(() => this.startTimer(this.currentPlayer), 0);
         }
     }
 
@@ -136,17 +139,14 @@ class MTGCounter {
     }
 
     saveState() {
-        const state = {
-            players: this.players.map(p => ({
-                ...p,
-                timerInterval: null // Don't save interval IDs
-            })),
+        this.gameState.state = {
+            players: this.players.map(p => p.toJSON()),
             currentPlayer: this.currentPlayer,
             gameStarted: this.gameStarted,
             currentTurn: this.currentTurn,
             playerCount: this.playerCount
         };
-        localStorage.setItem('mtgCounterState', JSON.stringify(state));
+        this.gameState.save();
     }
 
     resetGame() {
@@ -197,10 +197,6 @@ class MTGCounter {
             this.undo();
             this.toggleMenu();
         });
-
-        // Game control button
-        const gameControlBtn = document.getElementById('gameControl');
-        gameControlBtn.addEventListener('click', () => this.handleGameControl());
 
         // Player controls
         const containers = document.querySelectorAll('.player-container');
