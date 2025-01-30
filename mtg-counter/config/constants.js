@@ -10,8 +10,8 @@ export const GAME_CONSTANTS = {
     PLAYER_ORDERS: {
         2: [0, 1],                    // Left to right
         3: [0, 1, 2],                 // Top left, top right, bottom center
-        4: [0, 1, 3, 2],             // Top left, top right, bottom left, bottom right (clockwise)
-        5: [0, 1, 3, 2, 4],          // Top left, top right, bottom left, bottom right, bottom center (clockwise)
-        6: [0, 1, 3, 5, 4, 2]        // Top left, top right, bottom left, bottom middle left, bottom right, middle right (clockwise)
+        4: [0, 1, 2, 3],             // Numbers in turn order, CSS handles visual layout
+        5: [0, 1, 2, 3, 4],          // Numbers in turn order, CSS handles visual layout
+        6: [0, 1, 2, 3, 4, 5]        // Numbers in turn order, CSS handles visual layout
     }
 };
