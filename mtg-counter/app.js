@@ -211,6 +211,7 @@ class MTGCounter {
                 player.turn = 0;
                 player.isEliminated = false;
                 player.eliminatedOnTurn = null;
+                player.turnTimes = [0];  // Initialize turnTimes array
                 return player;
             }
         );
