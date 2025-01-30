@@ -73,7 +73,14 @@ class MTGCounter {
     initializeNewGame() {
         this.players = Array.from(
             { length: this.playerCount }, 
-            (_, i) => new Player(i)
+            (_, i) => {
+                const player = new Player(i);
+                // Ensure player has required properties
+                player.life = 40;
+                player.timer = 0;
+                player.turn = 0;
+                return player;
+            }
         );
         this.currentPlayer = null;
         this.gameStarted = false;
@@ -169,7 +176,13 @@ class MTGCounter {
         // Reset to initial state
         this.players = Array.from(
             { length: this.playerCount }, 
-            (_, i) => new Player(i)
+            (_, i) => {
+                const player = new Player(i);
+                player.life = 40;
+                player.timer = 0;
+                player.turn = 0;
+                return player;
+            }
         );
         this.currentPlayer = null;
         this.gameStarted = false;
@@ -263,6 +276,9 @@ class MTGCounter {
             
             console.log('Saving state...');
             this.saveState();
+            
+            // Close the menu after changing player count
+            this.toggleMenu();
             
             console.log('Player count change complete');
         } else {
