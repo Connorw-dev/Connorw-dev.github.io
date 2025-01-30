@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 20px;
+    padding: 60px 20px 20px 20px;
     flex: 1;
 }
 
@@ -32,7 +32,7 @@ header nav ul {
     gap: 20px;
     width: 100%;
     max-width: 1200px;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
     height: 100%;
     min-height: 600px;
 }
@@ -164,7 +164,7 @@ header nav ul {
     justify-content: center;
     padding: 15px;
     background-color: var(--bg-color);
-    margin-top: auto;
+    margin-top: 20px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
