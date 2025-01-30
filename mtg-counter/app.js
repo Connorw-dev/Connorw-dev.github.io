@@ -177,12 +177,6 @@ class MTGCounter {
 
         // Reset UI
         document.getElementById('gameControl').textContent = 'Start Game';
-        document.querySelectorAll('.player-container').forEach(container => {
-            container.classList.remove('active-player');
-        });
-
-        // Update displays
-        this.updateAllDisplays();
 
         // Clear localStorage
         localStorage.removeItem('mtgCounterState');
@@ -263,6 +257,9 @@ class MTGCounter {
             
             console.log('Setting up event listeners...');
             this.setupPlayerEventListeners();
+            
+            // Update displays after elements are created
+            this.updateAllDisplays();
             
             console.log('Saving state...');
             this.saveState();

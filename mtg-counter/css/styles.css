@@ -20,36 +20,37 @@
 }
 
 .players-3 {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 1fr;
 }
 
-.players-3 > div:last-child {
-    grid-column: 1 / -1;
+.players-3 > div:nth-child(3) {
+    grid-column: 1 / span 2;
+    justify-self: center;
     width: 50%;
-    margin: 0 auto;
 }
 
 .players-4 {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 .players-5 {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr) auto;
 }
 
-.players-5 > div:last-child {
-    grid-column: 1 / -1;
+.players-5 > div:nth-child(5) {
+    grid-column: 1 / span 2;
+    justify-self: center;
     width: 50%;
-    margin: 0 auto;
 }
 
 .players-6 {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2rem;
 }
 
 .player-container {
