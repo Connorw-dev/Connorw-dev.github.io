@@ -19,7 +19,9 @@ export class GameState {
                     id: p.id,
                     life: p.life,
                     timer: p.timer,
-                    turn: p.turn
+                    turn: p.turn,
+                    isEliminated: p.isEliminated,
+                    eliminatedOnTurn: p.eliminatedOnTurn
                 }))
             };
             localStorage.setItem(GameState.STORAGE_KEY, JSON.stringify(serializedState));

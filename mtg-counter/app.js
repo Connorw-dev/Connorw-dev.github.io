@@ -52,7 +52,14 @@ class MTGCounter {
 
     loadState(savedState) {
         this.playerCount = savedState.playerCount;
-        this.players = savedState.players.map(p => new Player(p.id, p.life));
+        this.players = savedState.players.map(p => {
+            const player = new Player(p.id, p.life);
+            player.timer = p.timer;
+            player.turn = p.turn;
+            player.isEliminated = p.isEliminated;
+            player.eliminatedOnTurn = p.eliminatedOnTurn;
+            return player;
+        });
         this.currentPlayer = savedState.currentPlayer;
         this.gameStarted = savedState.gameStarted;
         this.currentTurn = savedState.currentTurn;
@@ -562,8 +569,16 @@ class MTGCounter {
         
         // End current turn
         this.stopTimer(this.currentPlayer);
-        const currentPlayerIndex = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount].indexOf(this.currentPlayer);
-        this.currentPlayer = this.findNextActivePlayer(currentPlayerIndex);
+        const playerOrder = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount];
+        const currentIndex = playerOrder.indexOf(this.currentPlayer);
+        let nextIndex = (currentIndex + 1) % this.playerCount;
+        
+        // Find next non-eliminated player
+        while (this.players[playerOrder[nextIndex]].isEliminated && nextIndex !== currentIndex) {
+            nextIndex = (nextIndex + 1) % this.playerCount;
+        }
+        
+        this.currentPlayer = playerOrder[nextIndex];
         
         // Increment turn counter when we loop back to first player
         if (this.currentPlayer === GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0]) {

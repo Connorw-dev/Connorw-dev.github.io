@@ -10,8 +10,8 @@ export const GAME_CONSTANTS = {
     PLAYER_ORDERS: {
         2: [0, 1],
         3: [0, 1, 2],
-        4: [0, 1, 3, 2],
+        4: [0, 1, 2, 3],  // Clockwise: top-left, top-right, bottom-right, bottom-left
         5: [0, 1, 2, 3, 4],
-        6: [0, 1, 3, 4, 2, 5]
+        6: [0, 1, 2, 3, 4, 5]
     }
 };
