@@ -223,6 +223,7 @@ header nav ul {
     max-width: 90%;
     max-height: 90vh;
     overflow-y: auto;
+    margin: 2rem;
 }
 
 .game-over-content {
