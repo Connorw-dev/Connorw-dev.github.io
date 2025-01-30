@@ -83,11 +83,19 @@ class MTGCounter {
     }
 
     createPlayerElements() {
+        console.log('Creating player elements for', this.playerCount, 'players');
+        
         const container = document.querySelector('.players-container');
+        console.log('Container before clearing:', container);
+        console.log('Current container className:', container.className);
+        
         container.innerHTML = '';
-        container.className = `players-container players-${this.playerCount}`;
+        const newClassName = `players-container players-${this.playerCount}`;
+        console.log('Setting container className to:', newClassName);
+        container.className = newClassName;
         
         for (let i = 0; i < this.playerCount; i++) {
+            console.log('Creating player element', i + 1);
             const playerDiv = document.createElement('div');
             playerDiv.className = 'player-container';
             playerDiv.id = `player${i + 1}`;
@@ -103,8 +111,11 @@ class MTGCounter {
             `;
             
             container.appendChild(playerDiv);
+            console.log('Added player', i + 1, 'element:', playerDiv);
         }
         
+        console.log('Final container state:', container);
+        console.log('Setting up player event listeners...');
         this.setupPlayerEventListeners();
     }
 
@@ -205,27 +216,60 @@ class MTGCounter {
 
     toggleMenu() {
         const menuDialog = document.getElementById('menuDialog');
+        console.log('Toggle Menu called, dialog:', menuDialog);
+        console.log('Current dialog state:', menuDialog ? menuDialog.open : 'no dialog');
+        
         if (!menuDialog) {
             console.error('Menu dialog not found');
             return;
         }
         
-        if (menuDialog.open) {
-            menuDialog.close();
-        } else {
-            menuDialog.showModal();
+        try {
+            if (menuDialog.open) {
+                console.log('Closing menu dialog');
+                menuDialog.close();
+            } else {
+                console.log('Opening menu dialog');
+                menuDialog.showModal();
+            }
+        } catch (error) {
+            console.error('Error in toggleMenu:', error);
         }
+        console.log('Menu state after toggle:', menuDialog.open);
     }
 
     changePlayerCount(change) {
+        console.log('changePlayerCount called with change:', change);
+        console.log('Current player count:', this.playerCount);
+        
         const newCount = this.playerCount + change;
+        console.log('Proposed new count:', newCount);
+        
         if (newCount >= 2 && newCount <= 6) {
+            console.log('Changing player count from', this.playerCount, 'to', newCount);
             this.playerCount = newCount;
-            document.getElementById('playerCount').textContent = this.playerCount;
+            
+            const countDisplay = document.getElementById('playerCount');
+            console.log('Count display element:', countDisplay);
+            if (countDisplay) {
+                countDisplay.textContent = this.playerCount;
+            }
+            
+            console.log('Resetting game...');
             this.resetGame();
+            
+            console.log('Creating new player elements...');
             this.createPlayerElements();
+            
+            console.log('Setting up event listeners...');
             this.setupPlayerEventListeners();
+            
+            console.log('Saving state...');
             this.saveState();
+            
+            console.log('Player count change complete');
+        } else {
+            console.log('Invalid player count, staying at:', this.playerCount);
         }
     }
 
