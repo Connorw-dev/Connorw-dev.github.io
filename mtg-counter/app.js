@@ -199,18 +199,24 @@ class MTGCounter {
         // Menu controls
         document.getElementById('menuButton').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             this.toggleMenu();
         });
         document.getElementById('closeMenu').addEventListener('click', (e) => {
             e.preventDefault();
-            this.toggleMenu();
+            e.stopPropagation();
+            if (e.target === e.currentTarget) {
+                this.toggleMenu();
+            }
         });
         document.getElementById('increasePlayers').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             this.changePlayerCount(1);
         });
         document.getElementById('decreasePlayers').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             this.changePlayerCount(-1);
         });
         
@@ -242,12 +248,27 @@ class MTGCounter {
             return;
         }
         
-        if (menuDialog.hasAttribute('open')) {
-            console.log('Closing menu dialog');
-            menuDialog.close();
-        } else {
-            console.log('Opening menu dialog');
-            menuDialog.showModal();
+        // Prevent multiple toggles in quick succession
+        if (this._menuToggling) {
+            console.log('Menu toggle in progress, ignoring');
+            return;
+        }
+        
+        this._menuToggling = true;
+        
+        try {
+            if (menuDialog.hasAttribute('open')) {
+                console.log('Closing menu dialog');
+                menuDialog.close();
+            } else {
+                console.log('Opening menu dialog');
+                menuDialog.showModal();
+            }
+        } finally {
+            // Reset after a short delay to prevent rapid toggling
+            setTimeout(() => {
+                this._menuToggling = false;
+            }, 100);
         }
     }
 
