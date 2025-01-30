@@ -1,6 +1,6 @@
-import { Player } from './models/Player.js';
-import { GameState } from './services/GameState.js';
-import { GAME_CONSTANTS } from './config/constants.js';
+import { Player } from '../models/Player.js';
+import { GameState } from '../services/GameState.js';
+import { GAME_CONSTANTS } from '../config/constants.js';
 
 /**
  * MTG Life Counter Application
