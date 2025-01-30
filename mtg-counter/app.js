@@ -197,28 +197,9 @@ class MTGCounter {
 
     setupEventListeners() {
         // Menu controls
-        document.getElementById('menuButton').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.toggleMenu();
-        });
-        document.getElementById('closeMenu').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.target === e.currentTarget) {
-                this.toggleMenu();
-            }
-        });
-        document.getElementById('increasePlayers').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.changePlayerCount(1);
-        });
-        document.getElementById('decreasePlayers').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.changePlayerCount(-1);
-        });
+        document.getElementById('menuButton').addEventListener('click', () => this.toggleMenu());
+        document.getElementById('increasePlayers').addEventListener('click', () => this.changePlayerCount(1));
+        document.getElementById('decreasePlayers').addEventListener('click', () => this.changePlayerCount(-1));
         
         // Game control buttons
         document.getElementById('restartGame').addEventListener('click', () => {
@@ -241,25 +222,8 @@ class MTGCounter {
 
     toggleMenu() {
         const menuDialog = document.getElementById('menuDialog');
-        console.log('Toggle Menu called, dialog:', menuDialog);
-        
-        if (!menuDialog) {
-            console.error('Menu dialog not found');
-            return;
-        }
-
-        try {
-            if (menuDialog.open) {
-                console.log('Closing menu dialog');
-                menuDialog.close();
-                // Remove any lingering open attribute
-                menuDialog.removeAttribute('open');
-            } else {
-                console.log('Opening menu dialog');
-                menuDialog.showModal();
-            }
-        } catch (error) {
-            console.error('Error in toggleMenu:', error);
+        if (!menuDialog.open) {
+            menuDialog.showModal();
         }
     }
 

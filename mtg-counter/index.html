@@ -32,18 +32,20 @@
             <button id="menuButton" class="game-control menu-button" aria-label="Open menu">Menu</button>
         </section>
 
-        <dialog class="menu-overlay" id="menuDialog" aria-modal="true" onclick="event.stopPropagation()">
-            <div class="menu-content" onclick="event.stopPropagation()">
-                <div class="player-count-control">
-                    <label for="playerCount">Players:</label>
-                    <button id="decreasePlayers" class="game-control" aria-label="Decrease players">-</button>
-                    <output id="playerCount">4</output>
-                    <button id="increasePlayers" class="game-control" aria-label="Increase players">+</button>
+        <dialog class="menu-overlay" id="menuDialog">
+            <form method="dialog">
+                <div class="menu-content">
+                    <div class="player-count-control">
+                        <label for="playerCount">Players:</label>
+                        <button type="button" id="decreasePlayers" class="game-control" aria-label="Decrease players">-</button>
+                        <output id="playerCount">4</output>
+                        <button type="button" id="increasePlayers" class="game-control" aria-label="Increase players">+</button>
+                    </div>
+                    <button type="button" id="undoAction" class="game-control undo-button">Undo</button>
+                    <button type="button" id="restartGame" class="game-control restart-button">Restart Game</button>
+                    <button type="submit" class="game-control">Close Menu</button>
                 </div>
-                <button id="undoAction" class="game-control undo-button" aria-label="Undo last action">Undo</button>
-                <button id="restartGame" class="game-control restart-button" aria-label="Restart game">Restart Game</button>
-                <button id="closeMenu" class="game-control" aria-label="Close menu" type="button">Close Menu</button>
-            </div>
+            </form>
         </dialog>
     </main>
     
