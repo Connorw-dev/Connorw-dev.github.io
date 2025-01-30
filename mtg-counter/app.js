@@ -210,16 +210,10 @@ class MTGCounter {
             return;
         }
         
-        try {
-            if (menuDialog.open) {
-                menuDialog.close();
-            } else {
-                menuDialog.showModal();
-            }
-        } catch (error) {
-            console.error('Error toggling menu:', error);
-            // Fallback to classic display toggle
-            menuDialog.style.display = menuDialog.style.display === 'none' ? 'flex' : 'none';
+        if (menuDialog.open) {
+            menuDialog.close();
+        } else {
+            menuDialog.showModal();
         }
     }
 
@@ -229,6 +223,9 @@ class MTGCounter {
             this.playerCount = newCount;
             document.getElementById('playerCount').textContent = this.playerCount;
             this.resetGame();
+            this.createPlayerElements();
+            this.setupPlayerEventListeners();
+            this.saveState();
         }
     }
 

@@ -20,21 +20,36 @@
 }
 
 .players-3 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.players-3 > div:last-child {
+    grid-column: 1 / -1;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .players-4 {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 40px;
 }
 
 .players-5 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.players-5 > div:last-child {
+    grid-column: 1 / -1;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .players-6 {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 .player-container {
@@ -100,6 +115,11 @@
     background-color: var(--bg-color);
     color: var(--text-color);
     padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
 }
 
 .menu-overlay::backdrop {
