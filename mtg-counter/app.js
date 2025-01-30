@@ -268,9 +268,6 @@ class MTGCounter {
             console.log('Saving state...');
             this.saveState();
             
-            // Close the menu after changing player count
-            this.toggleMenu();
-            
             console.log('Player count change complete');
         } else {
             console.log('Invalid player count, staying at:', this.playerCount);
@@ -283,9 +280,14 @@ class MTGCounter {
      * @param {number} change - Amount to change life total (+1 or -1)
      */
     startLongPress(playerIndex, change) {
+        if (this.longPressTimer) return;
+        
         this.updateLife(playerIndex, change);
         this.longPressTimer = setTimeout(() => {
-            this.updateLife(playerIndex, change * GAME_CONSTANTS.LONG_PRESS_MULTIPLIER);
+            const interval = setInterval(() => {
+                this.updateLife(playerIndex, change);
+            }, 100);
+            this.longPressTimer = interval;
         }, GAME_CONSTANTS.LONG_PRESS_DELAY);
     }
 
