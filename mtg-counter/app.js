@@ -535,10 +535,10 @@ class MTGCounter {
      * Handle game control button click (Start Game/End Turn)
      */
     handleGameControl() {
-        const gameControlBtn = document.getElementById('gameControl');
-        
         if (!this.gameStarted) {
-            this.startNewGame();
+            // Just rotate the starting player without starting the game
+            this.currentPlayer = this.findNextActivePlayer(this.currentPlayer || -1);
+            this.setActivePlayer(this.currentPlayer);
         } else {
             this.endCurrentTurn();
         }
