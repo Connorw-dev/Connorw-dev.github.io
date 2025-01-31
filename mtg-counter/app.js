@@ -476,9 +476,6 @@ class MTGCounter {
             }
         });
         
-        const gameControlBtn = document.getElementById('gameControl');
-        gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
-        
         if (this.gameStarted && this.currentPlayer !== null) {
             this.setActivePlayer(this.currentPlayer);
         }
