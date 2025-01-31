@@ -506,12 +506,12 @@ class MTGCounter {
                 this.stopTimer(this.currentPlayer);
             }
         } else {
-            // Start the game if it hasn't started yet
             if (!this.gameStarted) {
+                // Initialize game and start timer in one go
                 this.startNewGame();
-            }
-            // Resume timer for current player
-            if (this.gameStarted && this.currentPlayer !== null) {
+                this.startTimer(this.currentPlayer);
+            } else if (this.currentPlayer !== null) {
+                // Resume timer for current player
                 this.startTimer(this.currentPlayer);
             }
         }
@@ -564,13 +564,10 @@ class MTGCounter {
     startNewGame() {
         this.gameStarted = true;
         this.currentTurn = 1;
-        this.currentPlayer = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0];
-        
-        // Start in paused state
-        this.isPaused = true;
-        const pauseBtn = document.getElementById('pauseGame');
-        pauseBtn.querySelector('.pause-icon').classList.add('hidden');
-        pauseBtn.querySelector('.play-icon').classList.remove('hidden');
+        // Keep the currently selected player instead of resetting it
+        if (this.currentPlayer === null) {
+            this.currentPlayer = 0;
+        }
         
         this.setActivePlayer(this.currentPlayer);
         this.players[this.currentPlayer].turn = this.currentTurn;
