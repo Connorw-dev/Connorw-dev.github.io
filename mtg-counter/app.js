@@ -278,40 +278,26 @@ class MTGCounter {
     }
 
     changePlayerCount(change) {
-        console.log('changePlayerCount called with change:', change);
-        console.log('Current player count:', this.playerCount);
-        
         const newCount = this.playerCount + change;
-        console.log('Proposed new count:', newCount);
         
         if (newCount >= 2 && newCount <= 6) {
-            console.log('Changing player count from', this.playerCount, 'to', newCount);
             this.playerCount = newCount;
             
+            // Update display count first
             const countDisplay = document.getElementById('playerCount');
-            console.log('Count display element:', countDisplay);
             if (countDisplay) {
                 countDisplay.textContent = this.playerCount;
             }
             
-            console.log('Resetting game...');
-            this.resetGame();
-            
-            console.log('Creating new player elements...');
+            // Create new player elements before resetting game
             this.createPlayerElements();
-            
-            console.log('Setting up event listeners...');
             this.setupPlayerEventListeners();
             
-            // Update displays after elements are created
-            this.updateAllDisplays();
+            // Now reset game state and update displays
+            this.resetGame();
             
-            console.log('Saving state...');
+            // Save the new state
             this.saveState();
-            
-            console.log('Player count change complete');
-        } else {
-            console.log('Invalid player count, staying at:', this.playerCount);
         }
     }
 
