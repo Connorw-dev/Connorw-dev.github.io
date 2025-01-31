@@ -546,8 +546,12 @@ class MTGCounter {
      */
     handleGameControl() {
         if (!this.gameStarted) {
-            // Just rotate the starting player without starting the game
-            this.currentPlayer = this.findNextActivePlayer(this.currentPlayer || -1);
+            // Initialize currentPlayer if it's null
+            if (this.currentPlayer === null) {
+                this.currentPlayer = 0;
+            }
+            // Rotate to next player
+            this.currentPlayer = (this.currentPlayer + 1) % this.playerCount;
             this.setActivePlayer(this.currentPlayer);
         } else {
             this.endCurrentTurn();
