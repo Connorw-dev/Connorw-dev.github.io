@@ -69,8 +69,6 @@ class MTGCounter {
         this.createPlayerElements();
         
         // Update UI elements
-        const gameControlBtn = document.getElementById('gameControl');
-        gameControlBtn.textContent = this.gameStarted ? 'End Turn' : 'Start Game';
         document.getElementById('playerCount').textContent = this.playerCount;
         
         // Update all displays first
