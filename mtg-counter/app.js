@@ -24,6 +24,7 @@ class MTGCounter {
         this.currentPlayer = null;
         this.gameStarted = false;
         this.currentTurn = 0;
+        this.startingPlayer = null;
 
         // Initialize the menu in a closed state
         const menuDialog = document.getElementById('menuDialog');
@@ -569,6 +570,9 @@ class MTGCounter {
             this.currentPlayer = 0;
         }
         
+        // Store who started the game
+        this.startingPlayer = this.currentPlayer;
+        
         this.setActivePlayer(this.currentPlayer);
         this.players[this.currentPlayer].turn = this.currentTurn;
         this.updateAllDisplays();
@@ -602,8 +606,8 @@ class MTGCounter {
         
         this.currentPlayer = nextPlayer;
         
-        // Increment turn counter when we loop back to first player
-        if (this.currentPlayer === GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0]) {
+        // Increment turn counter when we loop back to starting player
+        if (this.currentPlayer === this.startingPlayer) {
             this.currentTurn++;
         }
             
