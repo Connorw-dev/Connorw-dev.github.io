@@ -487,7 +487,10 @@ class MTGCounter {
     togglePause() {
         const pauseBtn = document.getElementById('pauseGame');
         this.isPaused = !this.isPaused;
-        pauseBtn.textContent = this.isPaused ? 'Resume' : 'Pause';
+        
+        // Toggle icons
+        pauseBtn.querySelector('.pause-icon').classList.toggle('hidden');
+        pauseBtn.querySelector('.play-icon').classList.toggle('hidden');
         
         if (this.isPaused) {
             // Stop current timer
@@ -495,6 +498,10 @@ class MTGCounter {
                 this.stopTimer(this.currentPlayer);
             }
         } else {
+            // Start the game if it hasn't started yet
+            if (!this.gameStarted) {
+                this.startNewGame();
+            }
             // Resume timer for current player
             if (this.gameStarted && this.currentPlayer !== null) {
                 this.startTimer(this.currentPlayer);
@@ -547,9 +554,13 @@ class MTGCounter {
         this.currentTurn = 1;
         this.currentPlayer = GAME_CONSTANTS.PLAYER_ORDERS[this.playerCount][0];
         
-        document.getElementById('gameControl').textContent = 'End Turn';
+        // Start in paused state
+        this.isPaused = true;
+        const pauseBtn = document.getElementById('pauseGame');
+        pauseBtn.querySelector('.pause-icon').classList.add('hidden');
+        pauseBtn.querySelector('.play-icon').classList.remove('hidden');
+        
         this.setActivePlayer(this.currentPlayer);
-        this.startTimer(this.currentPlayer);
         this.players[this.currentPlayer].turn = this.currentTurn;
         this.updateAllDisplays();
     }

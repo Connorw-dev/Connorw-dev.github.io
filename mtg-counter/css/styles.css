@@ -22,8 +22,9 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 60px 20px 20px 20px;
+    padding: 80px 20px 100px 20px;
     flex: 1;
+    margin-top: var(--header-height, 60px);
 }
 
 header nav ul {
@@ -201,10 +202,16 @@ header nav ul {
 .main-controls .pass-turn-button {
     width: 100%;
     padding: 15px;
-    font-size: 1.5em;
+    font-size: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .main-controls .secondary-controls {
@@ -215,10 +222,21 @@ header nav ul {
 
 .secondary-controls .game-control {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--accent-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.button-text {
+    margin-left: 8px;
 }
 
 .material-icons {
