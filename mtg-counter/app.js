@@ -211,7 +211,7 @@ class MTGCounter {
                 player.turn = 0;
                 player.isEliminated = false;
                 player.eliminatedOnTurn = null;
-                player.turnTimes = [0];  // Initialize turnTimes array
+                player.turnTimes = [0];
                 return player;
             }
         );
@@ -220,12 +220,20 @@ class MTGCounter {
         document.querySelectorAll('.player-container').forEach(container => {
             container.classList.remove('eliminated');
         });
+
+        // Reset game state
         this.currentPlayer = null;
         this.gameStarted = false;
         this.currentTurn = 0;
+        this.isPaused = true;
 
         // Reset UI
-        document.getElementById('gameControl').textContent = 'Start Game';
+        const pauseBtn = document.getElementById('pauseGame');
+        pauseBtn.querySelector('.pause-icon').classList.add('hidden');
+        pauseBtn.querySelector('.play-icon').classList.remove('hidden');
+
+        // Update all displays
+        this.updateAllDisplays();
 
         // Clear localStorage
         localStorage.removeItem('mtgCounterState');
