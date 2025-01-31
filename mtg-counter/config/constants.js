@@ -11,7 +11,7 @@ export const GAME_CONSTANTS = {
         2: [0, 1],                    // Left to right
         3: [0, 1, 2],                 // Top left, top right, bottom center
         4: [0, 1, 3, 2],             // Top left, top right, bottom right, bottom left (clockwise)
-        5: [0, 1, 3, 2, 4],          // Top left, top right, bottom right, bottom left, bottom center
+        5: [0, 1, 3, 4, 2],          // Top left, top right, bottom right, bottom center, bottom left
         6: [0, 1, 3, 5, 4, 2]        // Top left, top right, bottom right, middle right, bottom left, middle left
     }
 };
