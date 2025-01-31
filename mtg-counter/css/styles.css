@@ -22,7 +22,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 80px 20px 120px 20px;
+    padding: 80px 20px 140px 20px;
     flex: 1;
     margin-top: var(--header-height, 60px);
 }
@@ -203,18 +203,20 @@ header nav ul {
 
 .main-controls .pass-turn-button {
     width: 100%;
-    padding: 12px;
-    font-size: 1.1em;
+    padding: 10px;
+    font-size: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
     background-color: var(--accent-color);
     color: var(--bg-color);
     border: none;
     border-radius: 8px;
     margin-bottom: 8px;
     cursor: pointer;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .main-controls .secondary-controls {

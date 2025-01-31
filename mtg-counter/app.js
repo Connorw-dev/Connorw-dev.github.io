@@ -219,18 +219,23 @@ class MTGCounter {
         // Remove eliminated visual state
         document.querySelectorAll('.player-container').forEach(container => {
             container.classList.remove('eliminated');
+            container.classList.remove('active-player');
         });
 
         // Reset game state
-        this.currentPlayer = null;
+        this.currentPlayer = 0;  // Set to first player by default
         this.gameStarted = false;
         this.currentTurn = 0;
         this.isPaused = true;
+        this.undoStack = [];
 
         // Reset UI
         const pauseBtn = document.getElementById('pauseGame');
         pauseBtn.querySelector('.pause-icon').classList.add('hidden');
         pauseBtn.querySelector('.play-icon').classList.remove('hidden');
+
+        // Set first player as active
+        this.setActivePlayer(0);
 
         // Update all displays
         this.updateAllDisplays();
